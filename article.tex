@@ -1,0 +1,46 @@
+\RequirePackage[l2tabu,orthodox]{nag}
+\documentclass[a4paper]{article}
+\bibliographystyle{plain}
+
+\pdfoutput=1
+
+\usepackage{rwd-drafting}
+
+\input{preamble.tex}
+%%% some diagrams we won;t need in this papaer
+%\input{tikzpreamble.tex}
+%\input{quantumcircuits.tex}
+
+\input{front-matter.tex}
+
+
+
+
+\begin{document}
+% For article.cls abstract goes here 
+% other classes may have it in front-matter
+\maketitle
+\input{abstract.tex}
+
+
+\section{Introduction}
+\label{sec:intro}
+
+\section{Mathematical Preliminaries}
+\label{sec:prelim}
+
+\section{Rewriting systems as 2-PROPS}
+\label{sec:rewriting}
+
+\section{\mathbb{Q}-valued rewriting systems}
+
+\section{Conclusions and further work}
+\label{sec:conclusion}
+
+
+
+\small
+\bibliography{all}
+
+
+\end{document}

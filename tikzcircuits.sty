@@ -1,0 +1,120 @@
+\tikzstyle{circuit}=[baseline=(current bounding box).east,node distance=5mm,semithick]
+%% removed sclae=0.5
+
+\usetikzlibrary{calc}
+\pgfdeclarelayer{background} 
+\pgfdeclarelayer{foreground} 
+\pgfsetlayers{background,main,foreground} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Now declare new node shape for cnot gates
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pgfdeclareshape{oplus}
+%
+% Shaped like '\oplus' math symbol. Based on 'circle' shape
+%
+{%
+  % All anchors are taken from the 'circle' shape:
+  \inheritsavedanchors[from={circle}]%
+  \inheritanchor[from={circle}]{center}%
+  \inheritanchor[from={circle}]{mid}%
+  \inheritanchor[from={circle}]{base}%
+  \inheritanchor[from={circle}]{north}%
+  \inheritanchor[from={circle}]{south}%
+  \inheritanchor[from={circle}]{west}%
+  \inheritanchor[from={circle}]{east}%
+  \inheritanchor[from={circle}]{mid west}%
+  \inheritanchor[from={circle}]{mid east}%
+  \inheritanchor[from={circle}]{base west}%
+  \inheritanchor[from={circle}]{base east}%
+  \inheritanchor[from={circle}]{north west}%
+  \inheritanchor[from={circle}]{south west}%
+  \inheritanchor[from={circle}]{north east}%
+  \inheritanchor[from={circle}]{south east}%
+  \inheritanchorborder[from={circle}]%
+  %
+  % Only the background path is different
+  %
+  \backgroundpath{%
+    % First the existing 'circle' code:
+    \pgfutil@tempdima=\radius%
+    \pgfmathsetlength{\pgf@xb}{\pgfkeysvalueof{/pgf/outer xsep}}%
+    \pgfmathsetlength{\pgf@yb}{\pgfkeysvalueof{/pgf/outer ysep}}%
+    \ifdim\pgf@xb<\pgf@yb%
+      \advance\pgfutil@tempdima by-\pgf@yb%
+    \else%
+      \advance\pgfutil@tempdima by-\pgf@xb%
+    \fi%
+    \pgfpathcircle{\centerpoint}{\pgfutil@tempdima}%
+    %
+    % Now the | and -- lines:
+    \pgfmoveto{\pgfpointadd{\centerpoint}{\pgfpoint{0pt}{\pgfutil@tempdima}}}%
+    \pgflineto{\pgfpointadd{\centerpoint}{\pgfpoint{0pt}{-\pgfutil@tempdima}}}%
+    \pgfmoveto{\pgfpointadd{\centerpoint}{\pgfpoint{\pgfutil@tempdima}{0pt}}}%
+    \pgflineto{\pgfpointadd{\centerpoint}{\pgfpoint{-\pgfutil@tempdima}{0pt}}}%
+  }%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\tikzstyle{none}=[]
+\tikzstyle{box}=[rectangle,fill=white,draw=black,thin]
+
+\tikzstyle{H box}=[box,execute at end node={$H$}]
+
+\tikzstyle{Z box}=[box,execute at end node={$Z$}]
+\tikzstyle{Zp box}=[box,execute at end node={$Z_\pi$}]
+\tikzstyle{Zpp box}=[box,execute at end node={$Z_\frac{\pi}{2}$}]
+\tikzstyle{Za box}=[box,execute at end node={$Z_\alpha$}]
+\tikzstyle{Zb box}=[box,execute at end node={$Z_\beta$}]
+
+\tikzstyle{X box}=[box,execute at end node={$X$}]
+\tikzstyle{Xp box}=[box,execute at end node={$X_\pi$}]
+\tikzstyle{Xpp box}=[box,execute at end node={$X_\frac{\pi}{2}$}]
+\tikzstyle{Xa box}=[box,execute at end node={$X_\alpha$}]
+\tikzstyle{Xb box}=[box,execute at end node={$X_\beta$}]
+
+\tikzstyle{keto box}=[execute at end node={$\ket{0}$}]
+\tikzstyle{keti box}=[execute at end node={$\ket{1}$}]
+\tikzstyle{ketp box}=[execute at end node={$\ket{\!+\!}$}]
+\tikzstyle{ketm box}=[execute at end node={$\ket{\!-\!}$}]
+
+
+\tikzstyle{Mx box}=[box,execute at end node={$M_{X}$}]
+\tikzstyle{Mo box}=[box,execute at end node={$M_{\pm}$}]
+\tikzstyle{Ma box}=[box,execute at end node={$M_{\pm\alpha}$}]
+\tikzstyle{Mb box}=[box,execute at end node={$M_{\pm\beta}$}]
+
+
+\tikzstyle{ctrl vertex}=[circle,fill=black,minimum size=2.0mm,inner sep=0.3mm]
+\tikzstyle{target vertex}=[oplus,draw=black,thick,minimum
+size=4.0mm,inner sep=0]
+
+\newcommand{\circcnot}[4]{%
+    \node [style=ctrl vertex] (#1) at (#2) {};
+    \node [style=target vertex] (#3) at (#4) {};
+    \draw [thick] (#1) to (#3);
+    % add code here to draw a box around them
+}
+
+\newcommand{\circczed}[4]{%
+    \node [style=ctrl vertex] (#1) at (#2) {};
+    \node [style=box] (#3) at (#4) {$Z$};
+    \draw [thick] (#1) to (#3);
+    % add code here to draw a box around them
+}
+
+
+\tikzstyle{ellipses}=[execute at end node={\small{...}}]
+
+\tikzstyle{nicebg}=[execute at end picture=% 
+{ 
+\begin{pgfonlayer}{background}
+\path (current bounding box.north west)+(-0.5,0.5) node (bg1) {};
+\path (current bounding box.south east)+(0.5,-0.5) node (bg2) {};
+\path[fill=gray!5!white,draw=gray,rounded corners] (bg1) rectangle (bg2);
+\end{pgfonlayer}
+}]
+

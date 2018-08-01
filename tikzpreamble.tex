@@ -1,0 +1,64 @@
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{trees}
+\usetikzlibrary{topaths}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{matrix,backgrounds,folding}
+\usetikzlibrary{chains,scopes,positioning,fit}
+\usetikzlibrary{arrows,shadows}
+\usetikzlibrary{calc} 
+\usetikzlibrary{chains}
+\usetikzlibrary{shapes,shapes.geometric,shapes.misc}
+
+\usepackage[undirected]{tikzquanto}
+\usepackage{tikzcircuits}
+
+% \newcommand{\tikzfig}[1]{\inline{%
+% \beginpgfgraphicnamed{#1}
+% \InputIfFileExists{#1.tikz}{}{\input{./tikz/#1.tikz}}
+% \endpgfgraphicnamed}}
+
+% \newcommand{\ctikzfig}[1]{%
+% \begin{center}\rm
+%   \tikzfig{#1}
+% \end{center}}
+
+%\newcommand{\inlinetikzfig}[1]{\InputIfFileExists{#1.tikz}{}{\input{./tikz/#1.tikz}}}
+
+\pgfdeclarelayer{edgelayer}
+\pgfdeclarelayer{nodelayer}
+\pgfsetlayers{background,edgelayer,nodelayer,main}
+
+% this is the "quanto" style
+\tikzstyle{every picture}=[baseline=(current bounding box).east,node distance=5mm]
+\tikzstyle{none}=[inner sep=0mm]
+\tikzstyle{every loop}=[]
+
+% this is a work around for tikzit bug
+\tikzstyle{(null)}=[]
+\tikzstyle{plain}=[]
+
+%\tikzstyle{every loop}=[]
+
+% \tikzstyle{cloud} = [draw=gray!18,fill=gray!10, ellipse, node
+% distance=3cm,minimum height=3em, minimum width=5em]
+
+% some predefined tikz drawings
+%\input{tikz/gens.tex}
+
+
+
+%%% This by Liam -- think it's not needed.
+\tikzset{
+operator/.style = {draw,fill=white,minimum size=1.5em},%
+operator2/.style ={draw,fill=white,minimum height=7cm,minimum width=1.5 cm},%
+phase/.style = {draw,fill,shape=circle,minimum size=5pt,inner sep=0pt},% 
+endline/.style = {draw,fill,shape=circle,minimum size=1pt,inner sep=0pt},%
+surround/.style = {fill=blue!10,thick,draw=black,rounded corners=2mm},%
+cross/.style={},
+    % path picture={ \draw[thick,black](path picture bounding%
+    % box.north) -- (path picture bounding box.south) (path picture%
+    % bounding box.west) -- (path picture bounding box.east);}},%
+circlewc/.style={draw,circle,cross,minimum width=0.3 cm},%
+} %% end tikzset

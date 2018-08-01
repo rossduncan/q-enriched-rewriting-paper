@@ -1,0 +1,358 @@
+%%% Normal circuits vvv
+
+\newcommand{\circbox}[1]{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (1,0) {};
+  \node [box] (1) at (0, 0) {$#1$};
+  \node  (2) at (-1,0) {};
+  \draw  (0) to (1);
+  \draw  (1) to (2);
+\end{tikzpicture}
+}}
+
+\newcommand{\circX}[1]{\circbox{X_#1}}
+\newcommand{\circZ}[1]{\circbox{Z_#1}}
+\newcommand{\circH}{\circbox{H_{}}}
+\newcommand{\circS}{\circbox{S_{}}}
+\newcommand{\circV}{\circbox{V_{}}}
+
+
+
+\newcommand{\circket}[1]{\inline{%
+\begin{tikzpicture}[circuit]
+  \node [box] (1) at (0, 0) {$\ket{#1}$};
+  \node  (2) at (0, -1.5) {};
+  \draw  (1) to (2);
+\end{tikzpicture}
+}}
+
+\newcommand{\circketplus}{\circket{\!+\!}}
+
+\newcommand{\circketplusDef}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node [keto box] (0) at (0, 1.5) {};
+  \node [H box] (1) at (0, 0) {};
+  \node  (2) at (0, -1.25) {};
+  \draw  (0) to (1);
+  \draw  (1) to (2);
+\end{tikzpicture}
+}}
+
+\newcommand{\circCX}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (1, 0) {};
+  \node  (1) at (1, 1) {};
+% \node [style=ctrl vertex] (2) at (-1, 0) {};
+% \node [style=target vertex] (3) at (1, 0) {};
+  \circcnot{3}{0,1}{2}{0,0}
+  \node  (4) at (-1, 0) {};
+  \node  (5) at (-1,1) {};
+  \draw  (1) to (3);
+  \draw  (0) to (2);
+  \draw  (3) to (5);
+  \draw  (2) to (4);
+\end{tikzpicture}
+}}
+
+\newcommand{\circCZgate}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (-1, 1) {};
+  \node  (1) at (1, 1) {};
+% \node [style=ctrl vertex] (2) at (-1, 0) {};
+% \node [style=target vertex] (3) at (1, 0) {};
+  \circczed{2}{-1, 0}{3}{1, 0}
+  \node  (4) at (-1, -1) {};
+  \node  (5) at (1, -1) {};
+  \draw  (1) to (3);
+  \draw  (0) to (2);
+  \draw  (3) to (5);
+  \draw  (2) to (4);
+\end{tikzpicture}
+}}
+
+\newcommand{\circCZcirc}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (-1, 2.5) {};
+  \node  (1) at (1, 2.5) {};
+  \node [style=H box] (2) at (1, 1.25) {};
+% \node [style=ctrl vertex] (3) at (-1, 0) {};
+% \node [style=target vertex] (4) at (1, 0) {};
+  \circcnot{3}{-1, 0}{4}{1, 0}
+  \node [style=H box] (5) at (1, -1.25) {};
+  \node  (6) at (-1, -2.5) {};
+  \node  (7) at (1, -2.5) {};
+  \draw  (5) to (7);
+  \draw  (3) to (6);
+  \draw  (4) to (5);
+  \draw  (1) to (2);
+  \draw  (2) to (4);
+  \draw  (0) to (3);
+\end{tikzpicture}
+}}
+
+
+\newcommand{\circMakeBell}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node [style=keto box] (0) at (-1, 2.5) {};
+  \node [style=keto box] (1) at (1, 2.5) {};
+  \node [style=H box] (2) at (-1, 1.125) {};
+% \node [style=ctrl vertex] (3) at (-1, 0) {};
+% \node [style=target vertex] (4) at (1, 0) {};
+  \circcnot{3}{-1, 0}{4}{1, 0}
+  \node  (5) at (-1, -1) {};
+  \node  (6) at (1, -1) {};
+  \draw  (2) to (3);
+  \draw  (4) to (6);
+  \draw  (1) to (4);
+  \draw  (0) to (2);
+  \draw  (3) to (5);
+\end{tikzpicture}
+}}
+
+\newcommand{\circMakeCluster}{\inline{%
+\begin{tikzpicture}[quanto]
+  \node  (0) at (-4, 3) {};
+  \node [ketp box] (1) at (-2, 3.5) {};
+  \node [ketp box] (2) at (0, 3.5) {};
+  \node [ketp box] (3) at (2, 3.5) {};
+  \node [ketp box] (4) at (4, 3.5) {};
+  \node  (5) at (6, 3) {};
+  % \node [ctrl vertex] (6) at (-4, 2) {};
+  % \node [target vertex] (7) at (-2, 2) {};
+  \circczed{6}{-4, 2}{7}{-2, 2}
+  % \node [ctrl vertex] (8) at (0, 2) {};
+  % \node [target vertex] (9) at (2, 2) {};
+  \circczed{8}{0, 2}{9}{2, 2}
+  % \node [ctrl vertex] (10) at (4, 2) {};
+  % \node [target vertex] (11) at (6, 2) {};
+  \circczed{10}{4, 2}{11}{6, 2}
+  \node  (12) at (-4, 1) {};
+  % \node [ctrl vertex] (13) at (-2, 1) {};
+  % \node [target vertex] (14) at (0, 1) {};
+  \circczed{13}{-2, 1}{14}{0, 1}
+  % \node [ctrl vertex] (15) at (2, 1) {};
+  % \node [target vertex] (16) at (4, 1) {};
+  \circczed{15}{2, 1}{16}{4, 1}
+  \node  (17) at (6, 1) {};
+  \node  (18) at (-2, 0) {};
+  \node  (19) at (0, 0) {};
+  \node  (20) at (2, 0) {};
+  \node  (21) at (4, 0) {};
+  \draw  (13) to (18);
+  \draw  (8) to (14);
+  \draw  (11) to (17);
+  \draw  (6) to (12);
+  \draw  (16) to (21);
+  \draw  (4) to (10);
+  \draw  (1) to (7);
+  \draw  (9) to (15);
+  \draw  (5) to (11);
+  \draw  (14) to (19);
+  \draw  (15) to (20);
+  \draw  (7) to (13);
+  \draw  (0) to (6);
+  \draw  (2) to (8);
+  \draw  (10) to (16);
+  \draw  (3) to (9);
+  %%% added by hand
+  \node [ellipses] at (-4,3.5) {};
+  \node [ellipses] at (6,3.5) {};
+  \node [ellipses] at (-4,0.5) {};
+  \node [ellipses] at (6,0.5) {};
+\end{tikzpicture}
+}}
+
+\newcommand{\circmeas}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node [Ma box] (0) at (0, -1.5) {};
+  \node (1) at (0, 0) {};
+  \draw  (0) to (1);
+\end{tikzpicture}
+}}
+
+\newcommand{\circClassMeas}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node [Ma box] (0) at (0, -1.5) {};
+  \node (1) at (0, 0) {};
+  \node (2) at (0,-3) {};
+  \draw  (0) to (1);
+  \draw [double,thin] (0) to (2) ;
+\end{tikzpicture}
+}}
+
+\newcommand{\circClassPauliX}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (-1.5, 1.5) {};
+  \node  (1) at (0, 1.5) {};
+  \node  (2) at (-1.5, 0) {};
+  \node [Xp box] (3) at (0, 0) {};
+  \node  (4) at (0, -1.5) {};
+  \draw  [double,thin] (2.center) to (3);
+  \draw  [double,thin] (0) to (2.center);
+  \draw  (3) to (4);
+  \draw  (1) to (3);
+\end{tikzpicture}
+}}
+
+\newcommand{\circClassPauliZ}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (-1.5, 1.5) {};
+  \node  (1) at (0, 1.5) {};
+  \node  (2) at (-1.5, 0) {};
+  \node [Zp box] (3) at (0, 0) {};
+  \node  (4) at (0, -1.5) {};
+  \draw  [double,thin] (2.center) to (3);
+  \draw  [double,thin] (0) to (2.center);
+  \draw  (3) to (4);
+  \draw  (1) to (3);
+\end{tikzpicture}
+}}
+
+\newcommand{\circDelta}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (0, 1) {};
+  \node [boundary vertex] (1) at (0, 0) {};
+  \node  (2) at (-1, -1) {};
+  \node  (3) at (1, -1) {};
+  \draw [double,thin] (3.center) to (1);
+  \draw [double,thin] (1) to (0.center);
+  \draw [double,thin] (2.center) to (1);
+\end{tikzpicture}
+}}
+
+\newcommand{\circEpsilon}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (0, 1) {};
+  \node [boundary vertex] (1) at (0, 0) {};
+  \draw [double,thin] (1) to (0.center);
+\end{tikzpicture}
+}}
+
+\newcommand{\circDeltaLeft}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (0, 1) {};
+  \node [style=boundary vertex] (1) at (0, 0) {};
+  \node [style=boundary vertex] (2) at (-1, -1) {};
+  \node  (3) at (-2, -2) {};
+  \node  (4) at (0, -2) {};
+  \node  (5) at (2, -2) {};
+  \draw [double,thin] (2) to (3.center);
+  \draw [double,thin] (2) to (4.center);
+  \draw [double,thin] (1) to (2);
+  \draw [double,thin] (1) to (5.center);
+  \draw [double,thin] (1) to (0.center);
+\end{tikzpicture}
+}}
+
+\newcommand{\circDeltaRight}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (0, 1) {};
+  \node [style=boundary vertex] (1) at (0, 0) {};
+  \node [style=boundary vertex] (2) at (1, -1) {};
+  \node  (3) at (-2, -2) {};
+  \node  (4) at (0, -2) {};
+  \node  (5) at (2, -2) {};
+  \draw [double,thin] (2) to (5.center);
+  \draw [double,thin] (2) to (4.center);
+  \draw [double,thin] (1) to (2);
+  \draw [double,thin] (1) to (3.center);
+  \draw [double,thin] (1) to (0.center);
+\end{tikzpicture}
+}}
+
+\newcommand{\circDeltaUnit}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (0, 1) {};
+  \node [style=boundary vertex] (1) at (0, 0) {};
+  \node [style=boundary vertex] (2) at (-1, -1) {};
+  \node  (3) at (1, -1) {};
+  \draw [double,thin] (1) to (2);
+  \draw [double,thin] (1) to (3.center);
+  \draw [double,thin] (1) to (0.center);
+\end{tikzpicture}
+}}
+
+\newcommand{\circDeltaSigma}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node (0) at (0, 1) {};
+  \node [style=boundary vertex] (1) at (0, 0) {};
+  \node  (2) at (-1, -1) {};
+  \node  (3) at (1, -1) {};
+  \node  (4) at (-1, -2.5) {};
+  \node  (5) at (1, -2.5) {};
+  \draw [double,thin] (1) to (0.center);
+  \draw [double,thin][out=90, looseness=0.75, in=-90] (5.center) to (2.center);
+  \draw [double,thin][out=90, looseness=0.75, in=-90] (4.center) to (3.center);
+  \draw [double,thin] (1) to (2.center);
+  \draw [double,thin] (1) to (3.center);
+\end{tikzpicture}
+}}
+
+\newcommand{\circId}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (0, 1) {};
+  \node  (1) at (0, -1) {};
+  \draw [double,thin] (1.center) to (0.center);
+\end{tikzpicture}
+}}
+
+\newcommand{\circMeasErase}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (0, 1.5) {};
+  \node [style=Ma box] (1) at (0, 0) {};
+  \node [style=boundary vertex] (2) at (0, -1.5) {};
+  \draw [double,thin] (1) to (2);
+  \draw  (0.center) to (1);
+\end{tikzpicture}
+}}
+
+\newcommand{\circTeleport}{\inline{%
+\begin{tikzpicture}[circuit]
+  \node [label=above:Alice] (0) at (-2, 5) {};
+  \node [keto box] (1) at (0, 5) {};
+  \node [keto box] (2) at (2, 5) {};
+  \node [H box] (3) at (0, 3.5) {};
+  \node [ctrl vertex] (4) at (0, 2) {};
+  \node [target vertex] (5) at (2, 2) {};
+  \node [target vertex] (6) at (-2, 0.5) {};
+  \node [ctrl vertex] (7) at (0, 0.5) {};
+  \draw (4) to (5);
+  \draw (6) to (7);
+  \node [H box] (8) at (-2, -1) {};
+  \node [Mo box] (9) at (0, -1) {};
+  \node [Mo box] (10) at (-2, -2.5) {};
+  \node  (11) at (0, -2.5) {};
+  \node [Zp box] (12) at (2, -2.5) {};
+  \node  (13) at (-2, -4) {};
+  \node [Xp box] (14) at (2, -4) {};
+  \node [label=below:Bob] (15) at (2, -5) {};
+  \draw  (4) to (7);
+  \draw  (3) to (4);
+  \draw  [double,thin] (10) to (13.center);
+  \draw  (0.center) to (6);
+  \draw  (6) to (8);
+  \draw  [double,thin] (9) to (11.center);
+  \draw  (8) to (10);
+  \draw  (12) to (14);
+  \draw  (14) to (15.center);
+  \draw  (1) to (3);
+  \draw  (2) to (5);
+  \draw  [double,thin] (13.center) to (14);
+  \draw  [double,thin] (11.center) to (12);
+  \draw  (7) to (9);
+  \draw  (5) to (12);
+  \begin{pgfonlayer}{background}
+    \node [draw=gray!40,fill=gray!30,inner ysep=-9mm,inner
+    xsep=-7.5mm,fit=(1) (2) (4) (5),label={[gray!85]right:B}] {}; 
+    \node [draw=gray!40,fill=gray!30,inner ysep=-9mm,inner
+    xsep=-7.5mm,fit=(9) (10) (6) (7),label={[gray!85]left:A}] {};
+  \end{pgfonlayer}
+\end{tikzpicture}
+}}
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

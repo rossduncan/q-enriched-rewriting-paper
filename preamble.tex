@@ -1,0 +1,260 @@
+%
+% LaTeX2e Preamble / Ross Duncan 2011
+%
+%-------------------------------------------------------
+% TODO 27/1/2011
+% 1. Something for tikz
+% 2. Font alternatives?
+% 3. Which journals clash with which bits?
+% 4. No support for logic -- proof trees linear logic symbols etc
+% 5. Use switches to turn on/off some parts
+%-------------------------------------------------------
+
+% typographical improvements
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fixltx2e}
+\usepackage{microtype} 
+%\usepackage[stretch=10]{microtype} % more conservative
+%\usepackage[expansion=false]{microtype} % still more conservative
+\usepackage{xspace}
+
+% make figs a bit nicer
+\newcommand{\figureline}{\rule{\textwidth}{0.5pt}}
+\newcommand{\figureend}{\rule{\textwidth}{0.5pt}}
+
+% do The Right Thing
+\makeatletter
+\newcommand\etc{etc\@ifnextchar.{}{.\@}\xspace}
+\newcommand\ie{i.e.\@\xspace}  % these two may be broken
+\newcommand\eg{e.g.\@\xspace}
+\makeatother
+
+% arg is height; optional arg is baseline shift
+\newcommand{\vstrut}[2][0pt]{\rule[#1]{0pt}{#2}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Include graphics in a nice way
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+
+%%%% Use these commands to insert graphics into 
+%%%% the text and have them line up properly.
+
+%%% - inlinegraphic requires absolute size to be given
+%%% - ninlinegraphic uses optional scaling factor
+
+%%%% first param is the desired height of the graphic
+%%%% if it is less the 1ex, it might not look good
+\newcommand{\inlinegraphic}[2]{
+  %% todo -- make this thing calculate the height 
+  %% itself based on a global scaling factor
+  \dimendef\grafheight=255\dimendef\grafvshift=254
+  \grafheight=#1
+  \grafvshift=-0.5\grafheight
+  \advance\grafvshift by 0.5ex
+  \raisebox{\grafvshift}{\includegraphics[height=\grafheight]{images/#2}\xspace}
+}
+
+
+%%% optional first arg is scaling factor
+\newcommand{\ninlinegraphic}[2][1.0]{
+  \dimendef\grafheight=255\dimendef\grafvshift=254
+  \setbox0 = \hbox{\scalebox{#1}{\includegraphics{images/#2}}}
+  \grafheight=\the\ht0
+  \grafvshift=-0.5\grafheight
+  \advance\grafvshift by 0.5ex
+  \raisebox{\grafvshift}{\includegraphics[height=\grafheight]{images/#2}\xspace}
+}
+
+\newcommand{\inline}[1]{
+  \raisebox{0.5ex}{\;#1\;}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Mathematical packages and theorems
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath} % can collide with some journals
+\usepackage{stmaryrd}
+\usepackage{mathtools}
+%%% not needed if amsmath loaded
+% \newcommand{\text}[1]{\ensuremath{\mbox{#1}}}
+
+
+%%% Defining theorems and friends usually makes problems for journal
+%%% styles
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}\newtheorem{example}[theorem]{Example}
+\theoremstyle{definition}\newtheorem{examples}[theorem]{Examples}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{definition}\newtheorem{definitions}[theorem]{Definitions}
+\theoremstyle{definition}\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{definition}\newtheorem{remarks}[theorem]{Remarks}
+\newtheorem{notation}[theorem]{Notation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% General Mathematics shorthands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% aliases
+\newcommand{\infinity}{\infty}
+\newcommand{\iso}{\cong}
+\newcommand{\isomorphism}{\cong}
+\newcommand{\vd}{\ensuremath{\vdash}}  % = turnstyle
+
+\newcommand{\dom}{\operatorname{dom}}
+\newcommand{\cod}{\operatorname{cod}}
+\newcommand{\Tr}{\operatorname{Tr}}
+
+\newcommand{\denote}[1]{% --``semantic'' brakets
+\llbracket #1 \rrbracket} 
+\newcommand{\ldenote}[1]{\left\llbracket #1 \right\rrbracket} 
+\newcommand{\name}[1]{%---  name / coname 
+\ulcorner #1 \urcorner}
+\newcommand{\coname}[1]{%
+\llcorner #1 \lrcorner}
+\newcommand{\sizeof}[1]{% \sizeof{x} == |x|
+  \left|#1\right|}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Quantum Notations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\bra}[1]{%  dirac 'bra'
+    \ensuremath{\left\langle #1 \right|}\xspace}
+\newcommand{\ket}[1]{%  dirac 'ket'
+    \ensuremath{\left|  #1 \right\rangle}\xspace}
+\newcommand{\innp}[2]{%  dirac style inner product
+    \ensuremath{\langle #1 \mid #2 \rangle}}
+\newcommand{\outp}[2]{%  dirac style outer product
+    \ensuremath{\left|\left. #1 \rangle\right.\langle\left. #2 \right|\right. }}
+\newcommand{\norm}[1]{% define command to get spacing right
+        \ensuremath{\left| #1 \right| }}
+
+% aliases for circuits
+\newcommand{\CZ}{\ensuremath{\wedge Z}\xspace}
+\newcommand{\CX}{\ensuremath{\wedge X}\xspace}
+\newcommand{\CNot}{\CX}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Time to define some category  theory stuff
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{diagrams} % remember to give shout-out to Paul Taylor
+\newarrow{Equals}{}{=}{}{=}{}
+
+% Objects of ???
+\newcommand{\OBJ}[1]{\ensuremath{\mathrm{Obj}_{#1}}}
+% Objects of {\cal ??}
+\newcommand{\OBJC}[1]{\ensuremath{\mathrm{Obj}_{{\cal #1}}}}
+% Arrows of ???
+\newcommand{\ARR}[1]{\ensuremath{\mathrm{Arr}_{#1}}}
+% Arrows of {\cal ??}
+\newcommand{\ARRC}[1]{\ensuremath{\mathrm{Arr}_{{\cal #1}}}}
+
+% sub scripted identity morphisms
+\ifx\numericids\undefined
+\newcommand{\id}[1]{\ensuremath{\mathrm{id}_{#1}}}
+\else
+\newcommand{\id}[1]{\ensuremath{1_{#1}}}
+\fi
+
+% Caligraphic category names
+\newcommand{\catA}{\ensuremath{{\cal A}}\xspace}
+\newcommand{\catB}{\ensuremath{{\cal B}}\xspace}
+\newcommand{\catC}{\ensuremath{{\cal C}}\xspace}
+\newcommand{\catD}{\ensuremath{{\cal D}}\xspace}
+\newcommand{\catE}{\ensuremath{{\cal E}}\xspace}
+\newcommand{\catF}{\ensuremath{{\cal F}}\xspace}
+\newcommand{\catG}{\ensuremath{{\cal G}}\xspace}
+\newcommand{\catH}{\ensuremath{{\cal H}}\xspace}
+\newcommand{\catP}{\ensuremath{{\cal P}}\xspace}
+\newcommand{\catQ}{\ensuremath{{\cal Q}}\xspace}
+
+% Boldified names of useful categories (and some less useful!)
+%
+\newcommand{\vectfd}[1]{% category of f.d. vector spaces over some field
+\ensuremath{\mathbf{Vect}^{\mathrm{fd}}_{#1}}\xspace}
+\newcommand{\vectfdc}{% category of f.d. vector spaces over complexes
+\vectfd{\mathbb{C}}}
+\newcommand{\catRel}{% the category of sets and relations
+\ensuremath{\mathbf{Rel}}\xspace}
+\newcommand{\catSet}{% the category of sets and functions
+\ensuremath{\mathbf{Set}}\xspace}
+\newcommand{\catCat}{% the category of (small) categories
+\ensuremath{\mathbf{Cat}}\xspace}
+\newcommand{\catInvCat}{% the category of involutive categories
+\ensuremath{\mathbf{InvCat}}\xspace}
+\newcommand{\catComCl}{% the category of compact closed  categories
+\ensuremath{\mathbf{ComCl}}\xspace}
+\newcommand{\catSComCl}{% the category of strongly compact closed  categories
+\ensuremath{\mathbf{SComCl}}\xspace}
+\newcommand{\catGrph}{% the category of graphs
+\ensuremath{\mathbf{Grph}}\xspace}
+\newcommand{\qubit}{% the category of qubits
+\ensuremath{\mathbf{Qubit}}\xspace}
+\newcommand{\fdhilb}{% the category of finite dimensional hilbert space
+\ensuremath{\mathbf{fdHilb}}\xspace}
+\newcommand{\fdHilb}{\fdhilb}
+\newcommand{\catInvCom}{% the category of involutive categories
+\ensuremath{\mathbf{InvCom}}\xspace}
+\newcommand{\catCom}{% the category of compact closed  categories
+\ensuremath{\mathbf{Com}}\xspace}
+\newcommand{\superop}{% the category of superoperators
+\ensuremath{\mathbf{SuperOp}}\xspace}
+
+%%% I use this pretty often...
+\newcommand{\zxcalculus}{\textsc{zx}-calculus\xspace}
+\newcommand{\ZX}{\ensuremath{\mathbf{ZX}}\xspace}
+\newcommand{\ZXs}{\ensuremath{\mathbf{ZX_s}}\xspace}
+
+\newcommand{\Enc}{\ensuremath{\mathrm{Enc}}\xspace}
+\newcommand{\Dec}{\ensuremath{\mathrm{Dec}}\xspace}
+
+%%%%%%%% useful names for Cliffords
+
+\usepackage{dsfont}
+\newcommand{\ID}{\mathds{1}}
+
+\newcommand{\Cliff}{\ensuremath{\mathbf{Cliff}}\xspace}
+
+\newcommand{\C}[1]{%
+\ensuremath{\mathcal{C}_{#1}\xspace}}
+
+\newcommand{\CC}[1]{%
+\ensuremath{\mathfrak{C}_{#1}\xspace}}
+
+\renewcommand{\P}[1]{%
+\ensuremath{\mathcal{P}_{#1}\xspace}}
+
+\newcommand{\eq}{\ensuremath{\stackrel{*}{\leftrightarrow}}}
+\newcommand{\eqqq}{\ensuremath{\stackrel{*}{\longleftrightarrow}}}
+\newcommand{\rw}{\ensuremath{\stackrel{*}{\rightarrow}}}
+
+
+\newcommand{\CNOT}{\ensuremath{\textsc{cnot}}\xspace}
+\newcommand{\TONC}{\ensuremath{\textsc{tonc}}\xspace}
+
+
+
+
+%%-----------------------------------------------------
+%% TODO HERE --- TIKZ STUFF
+%%-----------------------------------------------------
+
+%\usepackage{pdflscape} % used to get somethings sideways
+
+
+%%%% hyperref wants to be last
+\usepackage{hyperref}

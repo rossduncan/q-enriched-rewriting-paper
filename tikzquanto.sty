@@ -1,0 +1,687 @@
+\ProvidesPackage{tikzquanto}[2015/09/07 Tikz Quanto + ZC calculus macros]
+\RequirePackage{tikzfig}  %%%% Basic tikz set up elsewhere
+
+%% Global monochrome option
+\newif\if@zxmono\@zxmonofalse
+\DeclareOption{mono}{
+  \@zxmonotrue
+}
+
+%% Global undirected option
+\newif\if@zxundirected\@zxundirectedfalse
+\DeclareOption{undirected}{
+  \@zxundirectedtrue
+}
+
+\ProcessOptions\relax
+
+
+
+%%%%%%%%%%%%%% colours -- TODO blue
+\if@zxmono
+     \newcommand{\gfillcolor}{gray!40!white}
+     \newcommand{\gdrawcolor}{gray}
+     \newcommand{\glabelcolor}{gray!30!white}
+     \newcommand{\rfillcolor}{gray!65!black}
+     \newcommand{\rdrawcolor}{black}
+     \newcommand{\rlabelcolor}{gray}
+     \newcommand{\yfillcolor}{white}
+     \newcommand{\ydrawcolor}{black}
+     \newcommand{\ylabelcolor}{white}
+\else
+     \newcommand{\gfillcolor}{green!50}
+     \newcommand{\gdrawcolor}{green!30!black}
+     \newcommand{\glabelcolor}{green!30}
+     \newcommand{\rfillcolor}{red}
+     \newcommand{\rdrawcolor}{red!40!black}
+     \newcommand{\rlabelcolor}{red!15}
+     \newcommand{\yfillcolor}{yellow}
+     \newcommand{\ydrawcolor}{yellow!30!black}
+     \newcommand{\ylabelcolor}{yellow}
+\fi
+
+%%%%%%%%%%%%%%%
+%%  Now define useful tikz styles
+%%%%%%%%%%%%%%%
+
+
+%%%
+\tikzstyle{simple}=[]
+
+%%%% global options
+\tikzstyle{every node}=[font=\small]
+\tikzstyle{every picture}=[baseline=-0.25em]
+\tikzstyle{dotpic}=[scale=0.5]
+\tikzstyle{dot graph}=[shorten <=-0.1mm,shorten >=-0.1mm,scale=0.6]
+\tikzstyle{plot point}=[circle,fill=black,minimum width=2mm,inner sep=0]
+\tikzstyle{quanto}=[baseline=(current bounding
+box).east,scale=0.5,node distance=5mm]
+
+\if@zxundirected
+\else
+\tikzstyle{diredges}=[every to/.style={diredge}]
+\fi
+
+%%%% ZX-Calculus
+
+\tikzstyle{vertex}=[circle,draw=black,thick,inner sep=0.4mm,minimum
+size=2.5mm]
+
+\tikzstyle{smallvertex}=[inner sep=0.4mm,minimum width=0pt,minimum
+height=0pt,draw=black,shape=circle]
+
+\tikzstyle{dotted vertex}=[vertex,densely dotted]
+\tikzstyle{black vertex}=[vertex,fill=black]
+\tikzstyle{white vertex}=[vertex,fill=white]
+\tikzstyle{gray vertex}=[vertex,fill=gray]
+
+\tikzstyle{dotted smallvertex}=[smallvertex,densely dotted]
+\tikzstyle{black smallvertex}=[smallvertex,fill=black]
+\tikzstyle{white smallvertex}=[smallvertex,fill=white]
+\tikzstyle{gray smallvertex}=[smallvertex,fill=gray]
+
+
+\tikzstyle{boundary vertex}=[circle,fill=black,inner sep=0.3mm]
+\tikzstyle{angle}=[fill=blue!50, minimum height=5mm, right, anchor=west, rounded corners=1mm, xshift=2.5mm,font=\small]
+\tikzstyle{angle left}=[angle,anchor=east,xshift=-4.5mm]
+\tikzstyle{angle below}=[angle,anchor=north,xshift=-2.5mm,yshift=-2.25mm]
+\tikzstyle{angle above}=[angle,anchor=south,xshift=-2.5mm,yshift=2.25mm]
+
+%%%% compat with Bob/Aleks
+\tikzstyle{dot}=[black vertex]
+\tikzstyle{smalldot}=[black smallvertex]
+\tikzstyle{white dot}=[white vertex]
+\tikzstyle{smallwhitedot}=[white smallvertex]
+\tikzstyle{alt white dot}=[white vertex]
+\tikzstyle{gray dot}=[gray vertex]
+\tikzstyle{smallgraydot}=[gray smallvertex]
+
+\tikzstyle{red vertex}=[vertex,fill=\rfillcolor,draw=\rdrawcolor]
+\tikzstyle{red smallvertex}=[smallvertex,fill=\rfillcolor,draw=\rdrawcolor]
+\tikzstyle{red angle}=[angle,fill=\rlabelcolor]
+\tikzstyle{red angle left}=[angle left,fill=\rlabelcolor]
+\tikzstyle{red angle below}=[angle below,fill=\rlabelcolor]
+\tikzstyle{red angle above}=[angle above,fill=\rlabelcolor]
+\tikzstyle{rpp}=[red vertex,inner sep=-0.5mm,execute at end
+node={${\displaystyle\color{white}\mathbf{+}}$}] 
+\tikzstyle{rpi}=[red vertex,inner sep=-0.5mm,execute at end
+node={\scalebox{1.1}{$\mathbf{{\displaystyle\color{white}\pi}}$}}] 
+\tikzstyle{rmm}=[red vertex,inner sep=-0.5mm,execute at end
+node={$\mathbf{{\displaystyle\color{white}-}}$}]  
+%%%% removed from all the "pi" vertices 
+%%%% vertex,fill=\rfillcolor,draw=\rdrawcolor
+
+\tikzstyle{green vertex}=[vertex,fill=\gfillcolor,draw=\gdrawcolor]
+\tikzstyle{green smallvertex}=[smallvertex,fill=\gfillcolor,draw=\gdrawcolor]
+\tikzstyle{green angle}=[angle,fill=\glabelcolor]
+\tikzstyle{green angle left}=[angle left,fill=\glabelcolor]
+\tikzstyle{green angle above}=[angle above,fill=\glabelcolor]
+\tikzstyle{green angle below}=[angle below,fill=\glabelcolor]
+\tikzstyle{gpp}=[green vertex,inner
+sep=-0.5mm,execute at end node={$\mathbf{{\displaystyle +}}$}] 
+\tikzstyle{gpi}=[green vertex,inner
+sep=-0.5mm,execute at end node={\scalebox{1.1}{$\mathbf{{\displaystyle\pi}}$}}] 
+\tikzstyle{gmm}=[green vertex,inner
+sep=-0.5mm,execute at end node={$\mathbf{{\displaystyle -}}$}] 
+
+\tikzstyle{hadamard vertex}=[rectangle,fill=\yfillcolor,draw=\ydrawcolor,execute at end node={\tiny H}]
+\tikzstyle{smallhadamard vertex}=[rectangle,fill=\yfillcolor,draw=\ydrawcolor,execute at end node={}]
+
+% shorthand names
+\tikzstyle{rn}=[red vertex]
+\tikzstyle{gn}=[green vertex]
+\tikzstyle{bn}=[boundary vertex]
+\tikzstyle{hn}=[hadamard vertex]
+
+\tikzstyle{green dot}=[green vertex]
+\tikzstyle{smallgreendot}=[green smallvertex]
+\tikzstyle{red dot}=[red vertex]
+\tikzstyle{smallreddot}=[red smallvertex]
+
+\tikzstyle{X}=[rn]
+\tikzstyle{Z}=[gn]
+\tikzstyle{wire}=[bn]
+\tikzstyle{hadamard}=[hn]
+\tikzstyle{directed}=[medium diredge]
+%%%%%%%% General Monoidal category stuff
+
+
+\tikzstyle{box}=[rectangle,fill=white,draw=black,thin]
+\tikzstyle{boxa}=[box,execute at end node={$a$}]
+\tikzstyle{boxb}=[box,execute at end node={$b$}]
+
+
+\tikzstyle{square box}=[rectangle,fill=white,draw=black,minimum height=5mm,minimum width=5mm,font=\small]
+\tikzstyle{square gray box}=[square box,fill=gray!30]
+\tikzstyle{point}=[regular polygon,regular polygon sides=3,draw=black,scale=0.85,inner sep=0pt,minimum width=7mm,fill=white]
+\tikzstyle{copoint}=[regular polygon,regular polygon sides=3,draw=black,scale=0.85,inner sep=0pt,minimum width=7mm,fill=white,regular polygon rotate=180]
+\tikzstyle{gray point}=[point,fill=gray!40!white]
+\tikzstyle{gray copoint}=[copoint,fill=gray!40!white]
+
+
+\tikzstyle{wide point}=[fill=white,draw=black,shape=isosceles triangle,shape border rotate=90,isosceles triangle stretches=true,inner sep=1pt,minimum width=1.5cm,minimum height=5mm]
+\tikzstyle{wide copoint}=[fill=white,draw=black,shape=isosceles triangle,shape border rotate=-90,isosceles triangle stretches=true,inner sep=1pt,minimum width=1.5cm,minimum height=4mm]
+\tikzstyle{very wide copoint}=[fill=white,draw=black,shape=isosceles triangle,shape border rotate=-90,isosceles triangle stretches=true,inner sep=1pt,minimum width=2.5cm,minimum height=4mm]
+\tikzstyle{very wide empty copoint}=[draw=black,shape=isosceles triangle,shape border rotate=-90,isosceles triangle stretches=true,inner sep=1pt,minimum width=2.5cm,minimum height=4mm]
+\tikzstyle{symm}=[ultra thick,shorten <=-1mm,shorten >=-1mm]
+
+% PARALLELAGRAM BOXES:
+%% \makeatletter %% don't need this in a style file
+\newcommand{\boxshape}[3]{%
+\pgfdeclareshape{#1}{
+\inheritsavedanchors[from=rectangle] % this is nearly a rectangle
+\inheritanchorborder[from=rectangle]
+\inheritanchor[from=rectangle]{center}
+\inheritanchor[from=rectangle]{north}
+\inheritanchor[from=rectangle]{south}
+\inheritanchor[from=rectangle]{west}
+\inheritanchor[from=rectangle]{east}
+% ... and possibly more
+\backgroundpath{% this is new
+% store lower right in xa/ya and upper right in xb/yb
+\southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+\northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+
+\@tempdima=#2
+\@tempdimb=#3
+
+\pgfpathmoveto{\pgfpoint{\pgf@xa - 1pt + \@tempdima}{\pgf@ya}}
+\pgfpathlineto{\pgfpoint{\pgf@xa - 1pt - \@tempdima}{\pgf@yb}}
+\pgfpathlineto{\pgfpoint{\pgf@xb + 1pt + \@tempdimb}{\pgf@yb}}
+\pgfpathlineto{\pgfpoint{\pgf@xb + 1pt - \@tempdimb}{\pgf@ya}}
+\pgfpathlineto{\pgfpoint{\pgf@xa - 1pt + \@tempdima}{\pgf@ya}}
+\pgfpathclose
+}
+}}
+
+\boxshape{NEbox}{0pt}{2pt}
+\boxshape{SEbox}{0pt}{-2pt}
+\boxshape{NWbox}{2pt}{0pt}
+\boxshape{SWbox}{-2pt}{0pt}
+%% \makeatother %% don't need this in a style file
+
+\tikzstyle{map}=[draw,shape=NEbox,inner sep=3pt]
+\tikzstyle{mapdag}=[draw,shape=SEbox,inner sep=3pt]
+\tikzstyle{maptrans}=[draw,shape=SWbox,inner sep=3pt]
+\tikzstyle{mapconj}=[draw,shape=NWbox,inner sep=3pt]
+
+\tikzstyle{green map}=[map, fill=\gfillcolor,draw=\gdrawcolor]
+\tikzstyle{green mapdag}=[mapdag, fill=\gfillcolor,draw=\gdrawcolor]
+\tikzstyle{green maptrans}=[maptrans, fill=\gfillcolor,draw=\gdrawcolor]
+\tikzstyle{green mapconj}=[mapconj, fill=\gfillcolor,draw=\gdrawcolor]
+\tikzstyle{green point}=[point, fill=\gfillcolor,draw=\gdrawcolor]
+\tikzstyle{green copoint}=[copoint, fill=\gfillcolor,draw=\gdrawcolor]
+
+\tikzstyle{red map}=[map, fill=\rfillcolor,draw=\rdrawcolor]
+\tikzstyle{red mapdag}=[mapdag, fill=\rfillcolor,draw=\rdrawcolor]
+\tikzstyle{red maptrans}=[maptrans, fill=\rfillcolor,draw=\rdrawcolor]
+\tikzstyle{red mapconj}=[mapconj, fill=\rfillcolor,draw=\rdrawcolor]
+\tikzstyle{red point}=[point, fill=\rfillcolor,draw=\rdrawcolor]
+\tikzstyle{red copoint}=[copoint, fill=\rfillcolor,draw=\rdrawcolor]
+
+% temp FIXME
+
+\pgfdeclareshape{rectangle with stripes}
+{
+    % This bit from \pgflibarayshapes.code.tex
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{north west}
+    \inheritanchor[from=rectangle]{north east}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{mid west}
+    \inheritanchor[from=rectangle]{mid east}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{base west}
+    \inheritanchor[from=rectangle]{base east}
+    \inheritanchor[from=rectangle]{south}
+    \inheritanchor[from=rectangle]{south west}
+    \inheritanchor[from=rectangle]{south east}
+
+    \inheritbackgroundpath[from=rectangle]
+    \inheritbeforebackgroundpath[from=rectangle]
+    \inheritbehindforegroundpath[from=rectangle]
+    \inheritforegroundpath[from=rectangle]
+    \inheritbeforeforegroundpath[from=rectangle]
+
+   % Now do the background filling.
+    \behindbackgroundpath{%
+        % \southwest and \northeast defined by rectangle, but
+        % (somewhat annoyingly) not \southeast and \northwest
+        % so use this workaround.
+        \pgfextractx{\pgf@xa}{\southwest}%
+        \pgfextracty{\pgf@ya}{\southwest}%
+        \pgfextractx{\pgf@xb}{\northeast}%
+        \pgfextracty{\pgf@yb}{\northeast}%
+
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya - 0pt}}%
+        \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@ya + \pgf@stripe@width}}%
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya + \pgf@stripe@width}}%
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya - 0pt}}%
+        \pgfpathclose
+        \color{\pgf@stripe@bottom@color}%
+        \pgfusepath{fill}%
+
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb + 0pt}}%
+        \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb - \pgf@stripe@width}}%
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb - \pgf@stripe@width}}%
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yb + 0}}%
+        \pgfpathclose
+        \color{\pgf@stripe@top@color}%
+        \pgfusepath{fill}%
+      }
+    }
+
+\def\pgf@stripe@top@color{red}
+\def\pgf@stripe@bottom@color{green}
+\def\pgf@stripe@width{3pt}
+
+% Use these with PGF
+\def\pgfsetstripetopcolor#1{\def\pgf@stripe@top@color{#1}}%
+\def\pgfsetstripebottomcolor#1{\def\pgf@stripe@bottom@color{#1}}%
+\def\pgfsetstripewidth#1{\def\pgf@stripe@width{#1}}%
+
+
+% Use these with TikZ
+\tikzoption{top color}{\pgfsetstripetopcolor{#1}}
+\tikzoption{bottom color}{\pgfsetstripebottomcolor{#1}}
+\tikzoption{stripe width}{\pgfsetstripewidth{#1}}
+
+
+%%%%%%%%% TOTAL OVERKILL TO DEFINE ANTIPODE
+\pgfdeclareshape{rectangle with diagonal fill}
+{
+    % This bit from \pgflibarayshapes.code.tex
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{north west}
+    \inheritanchor[from=rectangle]{north east}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{mid west}
+    \inheritanchor[from=rectangle]{mid east}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{base west}
+    \inheritanchor[from=rectangle]{base east}
+    \inheritanchor[from=rectangle]{south}
+    \inheritanchor[from=rectangle]{south west}
+    \inheritanchor[from=rectangle]{south east}
+
+    \inheritbackgroundpath[from=rectangle]
+    \inheritbeforebackgroundpath[from=rectangle]
+    \inheritbehindforegroundpath[from=rectangle]
+    \inheritforegroundpath[from=rectangle]
+    \inheritbeforeforegroundpath[from=rectangle]
+
+   % Now do the background filling.
+    \behindbackgroundpath{%
+        % \southwest and \northeast defined by rectangle, but
+        % (somewhat annoyingly) not \southeast and \northwest
+        % so use this workaround.
+        \pgfextractx{\pgf@xa}{\southwest}%
+        \pgfextracty{\pgf@ya}{\southwest}%
+        \pgfextractx{\pgf@xb}{\northeast}%
+        \pgfextracty{\pgf@yb}{\northeast}%
+        \ifpgf@diagonal@lefttoright
+            \def\pgf@diagonal@point@a{\pgfpoint{\pgf@xa}{\pgf@yb}}%
+            \def\pgf@diagonal@point@b{\pgfpoint{\pgf@xb}{\pgf@ya}}%
+        \else
+            \def\pgf@diagonal@point@a{\southwest}%
+            \def\pgf@diagonal@point@b{\northeast}%
+        \fi
+        \pgfpathmoveto{\pgf@diagonal@point@a}%
+        \pgfpathlineto{\northeast}%
+        \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}%
+        \pgfpathclose
+        \ifpgf@diagonal@lefttoright
+            \color{\pgf@diagonal@top@color}%
+        \else
+            \color{\pgf@diagonal@bottom@color}%
+        \fi
+        \pgfusepath{fill}%
+        \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@yb}}%
+        \pgfpathlineto{\southwest}%
+        \pgfpathlineto{\pgf@diagonal@point@b}%
+        \pgfpathclose
+        \ifpgf@diagonal@lefttoright
+            \color{\pgf@diagonal@bottom@color}%
+        \else
+            \color{\pgf@diagonal@top@color}%
+        \fi
+        \pgfusepath{fill}%
+    }
+}
+
+\newif\ifpgf@diagonal@lefttoright
+\def\pgf@diagonal@top@color{white}
+\def\pgf@diagonal@bottom@color{gray!30}
+
+% Use these with PGF
+\def\pgfsetdiagonaltopcolor#1{\def\pgf@diagonal@top@color{#1}}%
+\def\pgfsetdiagonalbottomcolor#1{\def\pgf@diagonal@bottom@color{#1}}%
+\def\pgfsetdiagonallefttoright{\pgf@diagonal@lefttorighttrue}%
+\def\pgfsetdiagonalrighttoleft{\pgf@diagonal@lefttorightfalse}%
+
+% Use these with TikZ
+\tikzoption{diagonal top color}{\pgfsetdiagonaltopcolor{#1}}
+\tikzoption{diagonal bottom color}{\pgfsetdiagonalbottomcolor{#1}}
+\tikzoption{diagonal from left to right}[]{\pgfsetdiagonallefttoright}
+\tikzoption{diagonal from right to left}[]{\pgfsetdiagonalrighttoleft}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tikzstyle{antipode}=[rectangle with diagonal fill, diagonal bottom
+color=\gfillcolor, diagonal top color=\rfillcolor,draw]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tikzstyle{grint}=[rectangle with stripes, top color=\gfillcolor,
+bottom color=\rfillcolor, minimum height=5mm,draw]
+\tikzstyle{rgint}=[rectangle with stripes, top color=\rfillcolor,
+bottom color=\gfillcolor, minimum height=5mm,draw]
+
+
+%%%%%%% edges %%%%%%%%%%%%%%%%%%
+
+\newcommand{\edgearrow}{{\arrow[black]{>}}}
+\newcommand{\edgetick}{{\arrow[black,scale=0.7,very thick]{|}}}
+
+\if@zxundirected
+  \tikzstyle{diredge}=[->]
+  \tikzstyle{rdiredge}=[<-]
+  \tikzstyle{medium diredge}=[-]
+  \tikzstyle{short diredge}=[->]
+\else
+  \tikzstyle{diredge}=[-]
+  \tikzstyle{rdiredge}=[-]
+  \tikzstyle{medium diredge}=[->,dashed,gray!40]
+  \tikzstyle{short diredge}=[-]
+\fi
+
+\tikzstyle{halfedge}=[-)]
+\tikzstyle{other halfedge}=[(-]
+\tikzstyle{freeedge}=[(-)]
+\tikzstyle{white edge}=[line width=5pt,white]
+\tikzstyle{tick}=[postaction=decorate,decoration={markings, mark=at position 0.5 with \edgetick}]
+\tikzstyle{small map edge}=[|-latex, gray!60!blue, shorten <=0.9mm, shorten >=0.5mm]
+\tikzstyle{thick dashed edge}=[very thick,dashed,gray!40]
+\tikzstyle{dashed edge}=[dashed,gray!40]
+\tikzstyle{map edge}=[|-latex,very thick, gray!40, shorten <=1mm, shorten >=0.5mm]
+\tikzstyle{tickedge}=[postaction=decorate,
+  decoration={markings, mark=at position 0.5 with \edgetick}]
+% \tikzstyle{dirtickedge}=[postaction=decorate,
+%   decoration={markings, mark=at position 0.3 with \edgearrow},
+%   decoration={markings, mark=at position 0.5 with \edgetick},
+%   decoration={markings, mark=at position 0.8 with \edgearrow}]
+\tikzstyle{dirtickedge}=[postaction=decorate,
+  decoration={markings, mark=at position 0.5 with \edgetick},
+  decoration={markings, mark=at position 0.85 with \edgearrow}]
+\tikzstyle{dirdoubletickedge}=[postaction=decorate,
+  decoration={markings, mark=at position 0.4 with \edgetick},
+  decoration={markings, mark=at position 0.6 with \edgetick},
+  decoration={markings, mark=at position 0.85 with \edgearrow}]
+
+
+%%%%%%%%%
+
+\tikzstyle{greenbox}=[rectangle,fill=\gfillcolor,draw=\gdrawcolor]
+\tikzstyle{bluebox}=[rectangle,fill=blue!30,draw=blue]
+\tikzstyle{whitebox}=[rectangle]
+
+\tikzstyle{nicebg}=[execute at end picture=% 
+{ 
+\begin{pgfonlayer}{background}
+\path (current bounding box.north west)+(-0.5,0.5) node (bg1) {};
+\path (current bounding box.south east)+(0.5,-0.5) node (bg2) {};
+\path[fill=gray!5!white,draw=gray,rounded corners] (bg1) rectangle (bg2);
+\end{pgfonlayer}
+}]
+
+\tikzstyle{bang box}=[fill=blue!20!gray!10,draw=blue!20!black]
+
+
+%%%  Misc 
+\tikzstyle{ellipses}=[execute at end node={\small{...}}]
+\tikzstyle{braceedge}=[decorate,decoration={brace,amplitude=2mm,raise=-1mm}]
+\tikzstyle{small
+  braceedge}=[decorate,decoration={brace,amplitude=1mm,raise=-1mm}]
+
+\tikzstyle{cnot}=[fill=white,shape=circle,inner sep=-1.4pt]
+\tikzstyle{wire label}=[font=\tiny, auto]
+
+
+%%%%%%%%% Now define useful in-prose symbols with coloured dots.
+
+\newcommand{\dotunit}[1]{%
+\,\begin{tikzpicture}[dotpic,yshift=-1mm]
+\node [#1] (a) at (0,0.25) {}; 
+\draw [medium diredge] (0,-0.2)--(a);
+\end{tikzpicture}\,}
+\newcommand{\dotcounit}[1]{%
+\,\begin{tikzpicture}[dotpic,yshift=1.5mm]
+\node [#1] (a) at (0,-0.25) {}; 
+\draw [medium diredge] (a)--(0,0.2);
+\end{tikzpicture}\,}
+\newcommand{\dotmult}[1]{%
+\,\begin{tikzpicture}[dotpic,yshift=0.5mm]
+  \node [#1] (a) {};
+  \draw [medium diredge] (-90:0.55)--(a);
+  \draw [medium diredge] (a) -- (45:0.6);
+  \draw [medium diredge] (a) -- (135:0.6);
+\end{tikzpicture}\,}
+\newcommand{\dotcomult}[1]{%
+\,\begin{tikzpicture}[dotpic]
+  \node [#1] (a) {};
+  \draw [medium diredge] (a) -- (90:0.55);
+  \draw [medium diredge] (a) (-45:0.6) -- (a);
+  \draw [medium diredge] (a) (-135:0.6) -- (a);
+\end{tikzpicture}\,}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\dotidualiser}[1]{%
+\begin{tikzpicture}[dotpic,yshift=1.5mm]
+  \node [#1] (a) {};
+  \draw [medium diredge] (a) to (-90:0.35);
+  \draw [medium diredge] (a) to (90:0.35);
+\end{tikzpicture}}
+\newcommand{\dotdualiser}[1]{%
+\begin{tikzpicture}[dotpic,yshift=1.5mm]
+  \node [#1] (a) {};
+  \draw [medium diredge] (-90:0.35) to (a);
+  \draw [medium diredge] (90:0.35) to (a);
+\end{tikzpicture}}
+\newcommand{\dottickunit}[1]{%
+\begin{tikzpicture}[dotpic,yshift=-1mm]
+\node [#1] (a) at (0,0.35) {}; 
+\draw [postaction=decorate,
+       decoration={markings, mark=at position 0.3 with \edgetick},
+       decoration={markings, mark=at position 0.85 with \edgearrow}] (a)--(0,-0.25);
+\end{tikzpicture}}
+\newcommand{\dottickcounit}[1]{%
+\begin{tikzpicture}[dotpic,yshift=1mm]
+\node [#1] (a) at (0,-0.35) {}; 
+\draw [postaction=decorate,
+       decoration={markings, mark=at position 0.8 with \edgetick},
+       decoration={markings, mark=at position 0.45 with \edgearrow}] (0,0.25) -- (a);
+\end{tikzpicture}}
+\newcommand{\dotonly}[1]{%
+\,\begin{tikzpicture}[dotpic,yshift=-0.3mm]
+\node [#1] (a) at (0,0) {};
+\end{tikzpicture}\,}
+
+\newcommand{\smalldotonly}[1]{%
+\,\begin{tikzpicture}[dotpic,yshift=-0.15mm]
+\node [#1] (a) at (0,0) {};
+\end{tikzpicture}\,}
+
+\newcommand{\dotthreestate}[1]{%
+\,\begin{tikzpicture}[dotpic,yshift=2.5mm]
+  \node [#1] (a) at (0,0) {};
+  \draw (a) -- (0,-0.6);
+  \draw [bend right] (a) to (-0.4,-0.6) (0.4,-0.6) to (a);
+\end{tikzpicture}\,}
+\newcommand{\dotcup}[1]{%
+\,\begin{tikzpicture}[dotpic,yshift=2.5mm]
+  \node [#1] (a) at (0,0) {};
+  \draw [bend right,medium diredge] (a) to (-0.4,-0.6);
+  \draw [bend left,medium diredge] (a) to (0.4,-0.6);
+\end{tikzpicture}\,}
+\newcommand{\dotcap}[1]{%
+\,\begin{tikzpicture}[dotpic,yshift=4mm]
+  \node [#1] (a) at (0,-0.6) {};
+  \draw [bend right,medium diredge] (-0.4,0) to (a);
+  \draw [bend left,medium diredge] (0.4,0) to (a);
+\end{tikzpicture}\,}
+
+% this doesn't have a colour
+\newcommand{\tick}{%
+\,\,\begin{tikzpicture}[dotpic]
+  \node [style=none] (a) at (0,0.35) {};
+  \node [style=none] (b) at (0,-0.35) {};
+  \draw [dirtickedge] (a) -- (b);
+\end{tikzpicture}\,\,}
+
+% these only make sense in black
+\newcommand{\lolli}{%
+\,\begin{tikzpicture}[dotpic,yshift=-1mm]
+  \path [use as bounding box] (-0.25,-0.25) rectangle (0.25,0.5);
+  \node [style=dot] (a) at (0, 0.15) {};
+  \node [style=none] (b) at (0, -0.25) {};
+  \draw [medium diredge] (a) to (b.center);
+  \draw [diredge, out=45, looseness=1.00, in=135, loop] (a) to ();
+\end{tikzpicture}\,}
+
+\newcommand{\cololli}{%
+\,\begin{tikzpicture}[dotpic]
+  \path [use as bounding box] (-0.25,-0.5) rectangle (0.25,0.5);
+  \node [style=none] (a) at (0, 0.5) {};
+  \node [style=dot] (b) at (0, 0) {};
+  \draw [diredge, in=-45, looseness=2.00, out=-135, loop] (b) to ();
+  \draw [medium diredge] (a.center) to (b);
+\end{tikzpicture}\,}
+
+% BLACK DOTS
+\newcommand{\blackdot}{\dotonly{dot}\@dotnegspace}
+\newcommand{\smallblackdot}{\smalldotonly{smalldot}}%NEW
+\newcommand{\unit}{\dotunit{dot}}
+\newcommand{\counit}{\dotcounit{dot}}
+\newcommand{\mult}{\dotmult{dot}}
+\newcommand{\comult}{\dotcomult{dot}}
+\newcommand{\tickunit}{\dottickunit{dot}}
+\newcommand{\tickcounit}{\dottickcounit{dot}}
+\newcommand{\dualiser}{\dotdualiser{dot}}
+\newcommand{\idualiser}{\dotidualiser{dot}}
+\newcommand{\threestate}{\dotthreestate{dot}}
+\newcommand{\blackcap}{\dotcap{dot}}
+\newcommand{\blackcup}{\dotcup{dot}}
+\newcommand{\blackobs}{\ensuremath{\mathcal O_{\!\smallblackdot}}\xspace}
+
+% WHITE DOTS
+\newcommand{\whitedot}{\dotonly{white dot}\@dotnegspace}
+\newcommand{\smallwhitedot}{\smalldotonly{smallwhitedot}}%NEW
+\newcommand{\whiteunit}{\dotunit{white dot}}
+\newcommand{\whitecounit}{\dotcounit{white dot}}
+\newcommand{\whitemult}{\dotmult{white dot}}
+\newcommand{\whitecomult}{\dotcomult{white dot}}
+\newcommand{\whitetickunit}{\dottickunit{white dot}}
+\newcommand{\whitetickcounit}{\dottickcounit{white dot}}
+\newcommand{\whitecap}{\dotcap{white dot}}
+\newcommand{\whitecup}{\dotcup{white dot}}
+\newcommand{\whiteobs}{\ensuremath{\mathcal O_{\!\smallwhitedot}}\xspace}
+
+
+% ALTERNATE WHITE DOTS
+\newcommand{\altwhitedot}{\dotonly{alt white dot}\@dotnegspace}
+\newcommand{\altwhiteunit}{\dotunit{alt white dot}}
+\newcommand{\altwhitecounit}{\dotcounit{alt white dot}}
+\newcommand{\altwhitemult}{\dotmult{alt white dot}}
+\newcommand{\altwhitecomult}{\dotcomult{alt white dot}}
+\newcommand{\altwhitetickunit}{\dottickunit{alt white dot}}
+\newcommand{\altwhitetickcounit}{\dottickcounit{alt white dot}}
+\newcommand{\altwhitecap}{\dotcap{alt white dot}}
+\newcommand{\altwhitecup}{\dotcup{alt white dot}}
+
+% GRAY DOTS
+\newcommand{\graydot}{\dotonly{gray dot}\@dotnegspace}
+\newcommand{\smallgraydot}{\smalldotonly{smallgraydot}}%NEW
+\newcommand{\grayunit}{\dotunit{gray dot}}
+\newcommand{\graycounit}{\dotcounit{gray dot}}
+\newcommand{\graymult}{\dotmult{gray dot}}
+\newcommand{\graycomult}{\dotcomult{gray dot}}
+\newcommand{\graytickunit}{\dottickunit{gray dot}}
+\newcommand{\graytickcounit}{\dottickcounit{gray dot}}
+\newcommand{\graycap}{\dotcap{gray dot}}
+\newcommand{\graycup}{\dotcup{gray dot}}
+
+\newcommand{\grayobs}{\ensuremath{\mathcal O_{\!\smallgraydot}}\xspace}
+
+
+\newcommand{\blacktranspose}{\ensuremath{{\,\blackdot\!\textrm{\rm\,T}}}}
+\newcommand{\graytranspose}{\ensuremath{{\,\graydot\!\textrm{\rm\,T}}}}
+\newcommand{\whitetranspose}{\ensuremath{{\,\whitedot\!\textrm{\rm\,T}}}}
+\newcommand{\whiteconjugate}{\circledast}
+
+\newcommand{\circl}{\begin{tikzpicture}[dotpic]
+    \node [style=none] (a) at (-0.25, 0.25) {};
+    \node [style=none] (b) at (0.25, 0.25) {};
+    \node [style=none] (c) at (-0.25, -0.25) {};
+    \node [style=none] (d) at (0.25, -0.25) {};
+    \draw [in=45, out=135] (b.center) to (a.center);
+    \draw [in=135, out=225] (a.center) to (c.center);
+    \draw [in=225, out=-45] (c.center) to (d.center);
+    \draw [style=diredge, in=-45, out=45] (d.center) to (b.center);
+\end{tikzpicture}}
+
+%%% RED and GREEN
+
+\newcommand{\@dotnegspace}{\hspace{-0.1em}}
+
+\newcommand{\gdot}{\dotonly{green dot}\@dotnegspace}
+\newcommand{\gsmalldot}{\smalldotonly{smallgreendot}}
+\newcommand{\gunit}{\dotunit{green dot}}
+\newcommand{\gcounit}{\dotcounit{green dot}}
+\newcommand{\gmult}{\dotmult{green dot}}
+\newcommand{\gcomult}{\dotcomult{green dot}}
+\newcommand{\gtickunit}{\dottickunit{green dot}}
+\newcommand{\gtickcounit}{\dottickcounit{green dot}}
+\newcommand{\gcap}{\dotcap{green dot}}
+\newcommand{\gcup}{\dotcup{green dot}}
+\newcommand{\gtrans}{\ensuremath{^{\gsmalldot}}}
+\newcommand{\gconj}{\ensuremath{_{\@dotnegspace\gsmalldot}}}
+
+\newcommand{\rdot}{\dotonly{red dot}\@dotnegspace}
+\newcommand{\rsmalldot}{\smalldotonly{smallreddot}}
+\newcommand{\runit}{\dotunit{red dot}}
+\newcommand{\rcounit}{\dotcounit{red dot}}
+\newcommand{\rmult}{\dotmult{red dot}}
+\newcommand{\rcomult}{\dotcomult{red dot}}
+\newcommand{\rtickunit}{\dottickunit{red dot}}
+\newcommand{\rtickcounit}{\dottickcounit{red dot}}
+\newcommand{\rcap}{\dotcap{red dot}}
+\newcommand{\rcup}{\dotcup{red dot}}
+\newcommand{\rtrans}{\ensuremath{^{\rsmalldot}}}
+\newcommand{\rconj}{\ensuremath{_{\@dotnegspace\rsmalldot}}}
+
+\newcommand{\gdelta}{\ensuremath{\delta\gconj}\xspace}
+\newcommand{\gepsilon}{\ensuremath{\epsilon\gconj}\xspace}
+\newcommand{\gmu}{\ensuremath{\mu\gconj}\xspace}
+\newcommand{\geta}{\ensuremath{\eta\gconj}\xspace}
+
+\newcommand{\rdelta}{\ensuremath{\delta\rconj}\xspace}
+\newcommand{\repsilon}{\ensuremath{\epsilon\rconj}\xspace}
+\newcommand{\rmu}{\ensuremath{\mu\rconj}\xspace}
+\newcommand{\reta}{\ensuremath{\eta\rconj}\xspace}
+
+
+\newcommand{\rgtrans}{\ensuremath{^{\rsmalldot\gsmalldot}}}
+\newcommand{\rgconj}{\ensuremath{_{\@dotnegspace\rsmalldot\gsmalldot}}}
+\newcommand{\grtrans}{\ensuremath{^{\gsmalldot\rsmalldot}}}
+\newcommand{\grconj}{\ensuremath{_{\@dotnegspace\gsmalldot\rsmalldot}}}
