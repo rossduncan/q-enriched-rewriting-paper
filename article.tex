@@ -244,9 +244,54 @@ a tensor products of transformations.
 \end{corollary}
 
 
-
-
 \section{$\mathbb{Q}$-valued rewriting systems}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        HOMOMORPHISM        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{$\catC(a, b)$ to $\mathbb{Q}$ homomorphism}
+
+Let's define the following homomorphism $F$ from $\catC(a, b)$ to $\mathbb{Q}$. For all $f: a \to b \in \{f_i\}_i$
+\[
+F(f) \in L
+\]
+For all $r: f \Rightarrow g \in \{r_i\}_i$
+\[
+F(r) = F(f) \oplus F(g)^{-1}
+\]
+
+On 1-cells
+\begin{align}
+F(f \circ g) &\preceq F(f) \oplus F(g) \cr
+F(f \otimes g) &\preceq F(f) \oplus F(g)
+\end{align}
+
+On 2-cells
+\begin{align}
+F(r \circ s) &= F(r) \oplus F(s) \cr
+F(r \otimes s) &= F(r) \oplus F(s) \cr
+F(r \bullet s) &= F(r) \oplus F(s)
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        HOMOMORPHISM REMARK        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{remark}
+Note that because
+\[
+F(r: f \Rightarrow g) = F(f) \oplus F(g)^{-1}
+\]
+then
+\begin{align}
+F(r: f \Rightarrow f) &= F(f) \oplus F(f)^{-1} \cr
+&= e
+\end{align}
+that is
+\begin{align}
+\forall f, F(id_f) = e
+\end{align}
+\end{remark}
+
 
 \section{Conclusions and further work}
 \label{sec:conclusion}
