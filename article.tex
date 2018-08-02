@@ -33,7 +33,8 @@
 %%        2-CATEGORY DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{2-Category}
-A 2-category \catC is a category \emph{enriched over \textbf{Cat}}, the category of categories.
+
+A \emph{strict} 2-category \catC is a category \emph{enriched over \textbf{Cat}}, the category of categories.
 
 \begin{itemize}
 \item objects are natural number $\mathbb{N}$, called \emph{0-cells}
@@ -44,15 +45,33 @@ A 2-category \catC is a category \emph{enriched over \textbf{Cat}}, the category
 \item for all 2-cells $r: f \Rightarrow g$ and $s: g \Rightarrow h$, a composition operator $r \bullet s: f \Rightarrow h$ called \emph{vertical composition}
 \end{itemize}
 \item for all 0-cells $a$ and all 1-cells $f: a \to a \in \catC(a, a)$, there is an identity 2-cell $r: f \Rightarrow f$, written $Id_f$
-\item for all 0-cells $(a, b, c)$ a functor $\circ: \catC(b, c) \times \catC(a, b) \to \catC(a, c)$ called \emph{horizontal composition}
+\item for all 0-cells $(a, b, c)$ a bifunctor $\circ: \catC(b, c) \times \catC(a, b) \to \catC(a, c)$ called \emph{horizontal composition}
 \end{itemize}
 
-In the following we'll always write
+In the following we'll always write $a, b, c$ for \emph{0-cells}, $f, g, h$ for \emph{1-cells} and $r, s, t$ for \emph{2-cells}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        MONOIDAL 2-CATEGORY DEFINITION        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Monoidal 2-category}
+
+A \emph{strict} monoidal 2-category $(\catC, \otimes)$ is a strict 2-category with
+
 \begin{itemize}
-\item $a, b, c\ldots$ for \emph{0-cells}
-\item $f, g, h\ldots$ for \emph{1-cells}
-\item $r, s, t\ldots$ for \emph{2-cells}
+\item a 2-bifunctor $\otimes: \catC \times \catC \to \catC$ such that on 2-cells $r, s, t, u$
+$$
+(r \otimes s) \circ (t \otimes u) = (r \circ t) \otimes (s \circ u)
+$$
 \end{itemize}
+
+\begin{remark}[Interchange law]
+Because $\circ$ and $\otimes$ are bifunctor, for all 0-cells $a, b \in \catC$ and all 2-cells $r, s, t, u \in \catC(a, b)$
+
+\begin{align}
+(r \circ s) \bullet (t \circ u) &= (r \bullet t) \circ (s \bullet u) \cr
+(r \otimes s) \bullet (t \otimes u) &= (r \bullet t) \otimes (s \bullet u)
+\end{align}
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        QUANTALE DEFINITION        %%
