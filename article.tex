@@ -29,13 +29,37 @@
 \section{Mathematical Preliminaries}
 \label{sec:prelim}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        2-CATEGORY DEFINITION        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{2-Category}
+A 2-category \catC is a category \emph{enriched over \textbf{Cat}}, the category of categories.
+
+\begin{itemize}
+\item objects are natural number $\mathbb{N}$, called \emph{0-cells}
+\item for all 0-cells $(a, b)$, a category $\catC(a, b)$ with
+\begin{itemize}
+\item objects $f: a \to b$, called \emph{1-cells}
+\item morphisms are called \emph{2-cells}
+\item for all 2-cells $r: f \Rightarrow g$ and $s: g \Rightarrow h$, a composition operator $r \bullet s: f \Rightarrow h$ called \emph{vertical composition}
+\end{itemize}
+\item for all 0-cells $a$ and all 1-cells $f: a \to a \in \catC(a, a)$, there is an identity 2-cell $r: f \Rightarrow f$, written $Id_f$
+\item for all 0-cells $(a, b, c)$ a functor $\circ: \catC(b, c) \times \catC(a, b) \to \catC(a, c)$ called \emph{horizontal composition}
+\end{itemize}
+
+In the following we'll always write
+\begin{itemize}
+\item $a, b, c\ldots$ for \emph{0-cells}
+\item $f, g, h\ldots$ for \emph{1-cells}
+\item $r, s, t\ldots$ for \emph{2-cells}
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        QUANTALE DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Quantale}
 
-Let's define the following quantale $\mathbb{Q}$ over a \emph{group}, which is a monoidal category
+A quantale $\mathbb{Q}$, over a \emph{group}, is a monoidal category
 
 \begin{itemize}
 \item objects are elements of a lattice $L$
