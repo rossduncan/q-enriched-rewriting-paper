@@ -29,6 +29,68 @@
 \section{Mathematical Preliminaries}
 \label{sec:prelim}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        QUANTALE DEFINITION        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Quantale}
+
+Let's define the following quantale $\mathbb{Q}$ over a \emph{group}, which is a monoidal category
+
+\begin{itemize}
+\item objects are elements of a lattice $L$
+\item for all objects $(x, y)$ there is a morphism between $x$ and $y$ iff $x \succeq y$ in $L$.
+\item a unit objet $e \in L$
+\item a monoidal operator $\oplus: Q \times Q \to Q$
+\end{itemize}
+
+\noindent such that for all $x, y \in L$ and $\{x_i\}_i, \{y_i\}_i \subseteq L$
+\begin{align}
+x \oplus \bigvee y_i &= \bigvee x \oplus y_i \cr
+\left(\bigvee x_i\right) \oplus y &= \bigvee x_i \oplus y
+\end{align}
+
+We require that for all objects $x$ of $\mathbb{Q}$, it exist an object $x^{-1}$ such that
+\begin{align}
+x \oplus x^{-1} &= e \cr
+x^{-1} \oplus x &= e
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        Q-ENRICHED CATEGORY DEFINITION        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{$\mathbb{Q}$-enriched category}
+
+A $\mathbb{Q}$-enriched category \catE is
+
+\begin{itemize}
+\item A set of objects
+\item For all objects $(a, b)$, $\catE(a, b) \in \mathbb{Q}$
+\end{itemize}
+
+such that for all object $a$
+$$
+e \succeq \catE(a, a)
+$$
+for all objects (a, b, c)
+$$
+\catE(b, c) \oplus \catE(a, b) \succeq \catE(a, c)
+$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        MONOIDAL Q-ENRICHED CATEGORY DEFINITION        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Monoidal $\mathbb{Q}$-enriched category}
+
+$(E, \otimes)$ is strictly monoidal if
+$$
+\catE(a, b) \oplus \catE(a', b') \succeq \catE(a \otimes a', b \otimes b')
+$$
+and symmetric if
+$$
+e \succeq \catE(a \otimes b, b \otimes a)
+$$
+
 \section{Rewriting systems as 2-PROPS}
 \label{sec:rewriting}
 
