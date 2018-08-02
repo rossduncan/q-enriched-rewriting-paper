@@ -206,6 +206,45 @@ s = (s_1 \bullet s_2) \otimes (s_3 \bullet s_4)
 \end{proof}
 \end{proposition}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        REWRITING SYSTEM PROPOSITION 2        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proposition}
+For all transformation $r: f \Rightarrow g$, $r$ can be writen
+\begin{align}
+r &= r_1 \circ r_2 \circ r_3 \circ \cdots \circ r_j \cr
+r &= r_1 \otimes r_2 \otimes r_3 \otimes \cdots \otimes r_k
+\end{align}
+
+\begin{proof}
+The proof is the same but this time we have to use
+\[
+(r \otimes s) \circ (t \otimes u) = (r \circ t) \otimes (s \circ u)
+\]
+\end{proof}
+\end{proposition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        REWRITING SYSTEM PROPOSITION 2 COROLLARY        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{corollary}
+For all transformation $r: f \Rightarrow g$, $r$ can be writen
+\[
+r = r_1 \bullet r_2 \bullet r_3 \bullet \cdots \bullet r_i
+\]
+Such that for all $i$
+\[
+r_i = r_{i, 1} \circ r_{i, 2} \circ r_{i, 3} \circ \cdots \circ r_{i, j}
+\]
+and for all $j$
+\[
+r_{i, j} = \bigotimes_k^l r_{i, j, k}
+\]
+a tensor products of transformations.
+\end{corollary}
+
+
+
 
 \section{$\mathbb{Q}$-valued rewriting systems}
 
