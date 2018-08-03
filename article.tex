@@ -389,6 +389,45 @@ which is still true.
 \end{proof}
 \end{proposition}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        HOMOMORPHISM PROPOSITION 3        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proposition}
+$\catC(\mathbb{Q})$ is strictly symmetric monoidal with $\otimes$, the 2-functor of $\catC$.
+
+\begin{proof}
+The monoidal structure is immediate using the fact that
+\[
+F(r) \oplus F(s) \succeq F(r \otimes s)
+\]
+that is
+\[
+F(r: f \Rightarrow g) \oplus F(s: f' \Rightarrow g') = F(r \otimes s: f \otimes f' \Rightarrow g \otimes g')
+\]
+so
+\[
+\catE(f, g) \oplus \catE(f', g') = \catE(f \otimes f', g \otimes g')
+\]
+For the symmetry, we use the fact that $F(f \Rightarrow g) \oplus F(g \Rightarrow f) = e$
+\begin{align}
+\catE(f \otimes g, g \otimes f) &= F(f \otimes g \Rightarrow g \otimes g) \cr
+&= F(f \Rightarrow g \otimes g \Rightarrow f) \cr
+&\preceq F(f \Rightarrow g) \oplus F(g \Rightarrow f) \cr
+&= F(f) \oplus F(g)^{-1} \oplus F(g) \oplus F(f)^{-1} \cr
+&= e
+\end{align}
+\end{proof}
+\end{proposition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        HOMOMORPHISM PROPOSITION 3 COROLLARY        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{corollary}
+Given $s: f \Rightarrow g$ a transformation, and $s^{-1}: g \Rightarrow f$ the inverse transformation
+\[
+F(s \otimes s^{-1}) = e
+\]
+\end{corollary}
 
 
 \section{Conclusions and further work}
