@@ -158,7 +158,7 @@ r \circ r^{-1} = id_f
 \item the 2-bifunctor is
 \begin{itemize}
 \item on 0-cell, $a \otimes b = a + b$
-\item on $\catC(a, b)$, a functor $C(a, b) \otimes C(a', b') \to C(a + a', b + b')$
+\item on $\catC(a, b)$, a functor $\catC(a, b) \otimes C(a', b') \to C(a + a', b + b')$
 \end{itemize}
 \end{itemize}
 
@@ -292,9 +292,9 @@ that is
 \end{align}
 \end{remark}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%        HOMOMORPHISM PROPOSITION        %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        HOMOMORPHISM PROPOSITION 1        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proposition}
 Given two transformations $r, s: f \Rightarrow g$, then $F(r) = F(s)$.
 
@@ -328,13 +328,67 @@ F(r) = F(s) = F(f) \oplus F(g)^{-1}
 \end{proof}
 \end{proposition}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%        HOMOMORPHISM PROPOSITION CO           %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        HOMOMORPHISM PROPOSITION 1 COROLLARY        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{corollary}
 For all transformations $r: f \Rightarrow g$, then $F(r) = F(f) \oplus F(g)^{-1}$.
 Note that the definition of $F$ gives that only for $r \in \{f_i\}_i$.
 \end{corollary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        HOMOMORPHISM PROPOSITION 2        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{proposition}
+The following category $\catC(\mathbb{Q})$ is a $\mathbb{Q}$-category
+\begin{itemize}
+\item A set of objects which are the 1-cells of $\catC$
+\item For all objects $(f, g)$
+\end{itemize}
+\[
+\catE(f, g) = \begin{cases} {\rm if~} f \Rightarrow g \in \catC, &F(f \Rightarrow g) \cr {\rm otherwise~} &\top \end{cases}
+\]
+With $\top \in Q$ such that for all $x \in \mathbb{Q}$
+\[
+x \preceq \top
+\]
+
+\begin{proof}
+For all 1-cells $(f, g)$, if it exists a unique transformation $f \Rightarrow g$, then
+\begin{align}
+\catE(f, g) &= F(f \Rightarrow g) \in \mathbb{Q} \cr
+&= F(f) \oplus F(g)^{-1}
+\end{align}
+otherwise we already have $\catE(f, g) = \top \in \mathbb{Q}$.
+For all 1-cell $f$, we know that there is a identity transformation $f \Rightarrow f$ and
+\begin{align}
+\catE(f, f) &= F(id_f) \cr
+&= F(f \Rightarrow f)\cr
+&= F(f) \oplus F(f)^{-1} \cr
+&= e
+\end{align}
+Finally, for all 1-cells $(f, g, h)$ such that there exists $r: f \Rightarrow g$ and $s: g \Rightarrow h$ in $\catC$, then the homomorphism $F$ give us
+\begin{align}
+\catE(f, h) &= F(f \Rightarrow h) \cr
+&= F(s\circ r) \cr
+&= F(s) \oplus F(r) \cr
+&= F(g \Rightarrow h) \oplus F(f \Rightarrow g) \cr
+&= \catE(g, h) \oplus \catE(f, g)
+\end{align}
+If either $r$ or $s$ doesn't exists in $\catC$ then
+\[
+\catE(b, c) \oplus \catE(a, b) \succeq \catE(a, c)
+\]
+become
+\[\begin{matrix}
+&\catE(b, c) \oplus \top &\succeq \top \cr
+{\rm or~} &\top \oplus \catE(a, b) &\succeq \top \cr
+{\rm or~} &\top \oplus \top &\succeq \top
+\end{matrix}\]
+which is still true.
+\end{proof}
+\end{proposition}
+
 
 
 \section{Conclusions and further work}
