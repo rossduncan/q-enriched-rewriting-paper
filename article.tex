@@ -29,7 +29,7 @@ We assume that the reader is familiar with the notion of symmetric
 monoidal category; a standard reference is
 \cite{MacLane:CatsWM:1971}.  
 
-\begin{definition}\label{def:PROP}
+\begin{definition} \label{def:PROP}
   A \emph{PROP} is strict symmetric monoidal category whose objects
   are the natural numbers, and where the action of the tensor product on
   objects is given by addition.
@@ -40,11 +40,11 @@ PROPs have been used to formalise many algebraic structures
 general notion of \emph{circuit} as a free PROP over a certain set of
 gates.
 
-\begin{example}  \label{ex:boolean-circs}
+\begin{example} \label{ex:boolean-circs}
   TODO -- boolean circuits
 \end{example}
 
-\begin{example}  \label{ex:quantum-circs}
+\begin{example} \label{ex:quantum-circs}
   The main example of interest is \Circ, the PROP of quantum circuits.
   Different authors, and different hardware manufacturers, prefer
   different primitive gate sets but the following is typical:
@@ -82,24 +82,24 @@ model them as higher dimensional arrows.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{definition}  \label{def:strict-two-cat}
-A \emph{strict} 2-category $\mathcal{C}$ is a category \emph{enriched over
-  \textbf{Cat}}, the category of categories, \emph{viz:}
-\begin{itemize}
-\item A category $\mathcal{C}$, whose objects and arrows are known as
-  0-cells and 1-cells respectively.
-\item For every pair of objects $A$ and $B$, we have a
-  category $\mathcal{C}(A, B)$, whose arrows are known as 2-cells.
-\item For 2-cells $\alpha : f \Rightarrow g$ and $\beta : g
-  \Rightarrow h$ in $\mathcal{C}(A,B)$ their (vertical) composite is denoted
-  $\beta\bullet\alpha : f \Rightarrow h$.
-\item For every 1-cell $f:A\to B$ we denote its identity 2-cell by
-  $Id_f:f \Rightarrow f$.
-\item For all 0-cells $a$, $b$, $c$ a bifunctor $\circ: \mathcal{C}(b, c)
-  \times \mathcal{C}(a, b) \to \mathcal{C}(a, c)$ called \emph{horizontal
-    composition} of 2-cells.
-\end{itemize}
-\REM{Need here the name for a 2-cat with all 2-cells invertible;  the
-  term 2-groupoid refers to the case where both 1- and 2-cells are
+  A \emph{strict} 2-category $\mathcal{C}$ is a category \emph{enriched over
+    \textbf{Cat}}, the category of categories, \emph{viz:}
+  \begin{itemize}
+    \item A category $\mathcal{C}$, whose objects and arrows are known as
+      \emph{0-cells} and \emph{1-cells} respectively.
+    \item For every pair of objects $A$ and $B$, we have a
+      category $\mathcal{C}(A, B)$, whose arrows are known as \emph{2-cells}.
+    \item For \emph{2-cells} $\alpha : f \Rightarrow g$ and $\beta : g
+      \Rightarrow h$ in $\mathcal{C}(A,B)$ their (vertical) composite is denoted
+      $\beta \bullet \alpha : f \Rightarrow h$.
+    \item For every 1-cell $f:A\to B$ we denote its identity 2-cell by
+      $Id_f:f \Rightarrow f$.
+    \item For all \emph{0-cells} $a$, $b$, $c$ a bifunctor $\circ:
+      \mathcal{C}(b, c) \times \mathcal{C}(a, b) \to \mathcal{C}(a, c)$ called
+      \emph{horizontal composition} of \emph{2-cells}.
+  \end{itemize}
+\REM{Need here the name for a 2-cat with all \emph{2-cells} invertible;  the
+  term 2-groupoid refers to the case where both 1- and \emph{2-cells} are
   invertible.}
 \end{definition}
 
@@ -108,31 +108,32 @@ In the following we'll always write $A, B, C$ for \emph{0-cells}, $f,
 g, h$ for \emph{1-cells} and $\alpha$, $\beta$, $\gamma$ for
 \emph{2-cells}.
 
-\begin{definition}
-  \label{def:two-functor}
-  DEFINITION OF 2-FUNCTOR here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        2-FUNCTOR DEFINITION        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{definition} \label{def:two-functor}
+  A \emph{strict} 2-functor $F$ between two \emph{strict} 2-categories
+    $\mathcal{C}$ and $\mathcal{D}$ is
+  \begin{itemize}
+    \item for all \emph{0-cells} $A \in \mathcal{C}$ a 0-cell $F(A) \in
+      \mathcal{D}$
+    \item for all \emph{0-cells} $(A, B) \in \mathcal{C}$ a functor $F_{A, B}:
+      \mathcal{C}(A, B) \to \mathcal{D}(F(A), F(B))$
+  \end{itemize}
+
+  \noindent
+  Such that $F$ respect the horizontal and vertical compositions.
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        MONOIDAL 2-CATEGORY DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{definition}\label{def:monoidal-two-cat}
-A \emph{strict} monoidal 2-category $(\mathcal{C}, \otimes)$ is a strict
-2-category with
-\REM{Is this \emph{required}?  Doesn't it follow from the  definition
-  of bifunctor?  (It does in the 1-category case, so it should do
-  here!)}
-\begin{itemize}
-\item a 2-bifunctor $\otimes: \mathcal{C} \times \mathcal{C} \to \mathcal{C}$
-  such that on 2-cells $\alpha, \beta, \gamma, \delta$
-\[
-(\alpha \otimes \beta) \circ (\gamma \otimes \delta) = (\alpha \circ \gamma)
-  \otimes (\beta \circ \delta)
-\]
-\REM{This definition doesn't quite work without the additoin type
-  information on the 2-cells}
-\end{itemize}
+  A \emph{strict} monoidal 2-category $(\mathcal{C}, \otimes)$ is a strict
+    2-category with a 2-bifunctor $\otimes: \mathcal{C} \times \mathcal{C} \to
+    \mathcal{C}$.
+  \REM{This definition doesn't quite work without the additoin type
+    information on the \emph{2-cells}}
 \end{definition}
 
 
@@ -140,15 +141,22 @@ A \emph{strict} monoidal 2-category $(\mathcal{C}, \otimes)$ is a strict
 %%        INTERCHANGE LAW REMARK        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{remark}[Interchange law]
-Since $\circ$ and $\otimes$ are bifunctorial, we have the following
-interchange equations for all 0-cells $A, B \in \mathcal{C}$ and all 2-cells
-  $\alpha, \beta, \gamma, \delta \in \mathcal{C}(A, B)$
-\begin{align}
-(\alpha \circ \beta) \bullet (\gamma \circ \delta) &= (\alpha \bullet \gamma)
-  \circ (\beta \bullet \delta) \\
-(\alpha \otimes \beta) \bullet (\gamma \otimes \delta) &= (\alpha \bullet
-  \gamma) \otimes (\beta \bullet \delta)
-\end{align}
+  Since $\circ$ and $\otimes$ are bifunctorial, we have the following
+    interchange equations for all \emph{0-cells} $A, B \in \mathcal{C}$ and all
+    \emph{2-cells} $\alpha, \beta, \gamma, \delta \in \mathcal{C}(A, B)$
+  \begin{align}
+    (\alpha \circ \beta) \bullet (\gamma \circ \delta) &= (\alpha \bullet
+      \gamma) \circ (\beta \bullet \delta) \\
+    (\alpha \otimes \beta) \bullet (\gamma \otimes \delta) &= (\alpha \bullet
+      \gamma) \otimes (\beta \bullet \delta)
+  \end{align}
+  Since $\otimes$ is a 2-functor, we have for all \emph{0-cells} $A, B \in
+    \mathcal{C}$ and all \emph{2-cells} $\alpha, \beta, \gamma, \delta \in
+    \mathcal{C}(A, B)$
+  \[
+    (\alpha \otimes \beta) \bullet (\gamma \otimes \delta) = (\alpha \bullet
+      \gamma) \bullet (\beta \bullet \delta)
+  \]
 \end{remark}
 
 \section{Rewriting systems as 2-PROPS}
@@ -158,120 +166,123 @@ interchange equations for all 0-cells $A, B \in \mathcal{C}$ and all 2-cells
 %%        REWRITING SYSTEM DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{definition}
-Given a free PROP of quantum circuits, we can extend it to a 2-PROP
-  $\mathcal{P}$ where
-\begin{itemize}
-\item gates form the set of 1-cells 
-\item the 2-cells are generated by a finite set of \emph{rewriting} rules such
-  that
-\begin{itemize}
-\item 2 rewriting rules with the same types must be equal
-\item each rewriting rule must be invertible, that is $\mathcal{C}(A, B)$ is a
-  \emph{groupoid} for all 0-cells $A, B$
-\end{itemize}
-\end{itemize}
-
-2-cells are in general called \emph{rewrite sequence}, but if a rewrite sequence
-  has only 1 occurence of a rewrite rule, it is called an \emph{atomic rule}.
+  Given a free PROP of quantum circuits, we can extend it to a 2-PROP
+    $\mathcal{P}$ where
+  \begin{itemize}
+    \item gates form the set of \emph{1-cells} 
+    \item the \emph{2-cells} are generated by a finite set of \emph{rewriting}
+      rules such that
+    \begin{itemize}
+      \item 2 rewriting rules with the same types must be equal
+      \item each rewriting rule must be invertible, that is $\mathcal{C}(A, B)$
+        is a \emph{groupoid} for all \emph{0-cells} $A, B$
+    \end{itemize}
+  \end{itemize}
+  
+  \emph{2-cells} are in general called \emph{rewrite sequence}, but if a rewrite
+    sequence has only 1 occurence of a rewrite rule, it is called an
+    \emph{atomic rule}.
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        REWRITING SYSTEM EXAMPLE        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{example}
-TODO rewrite sequence \& atomic rule
+  TODO rewrite sequence \& atomic rule
 \end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        REWRITING SYSTEM PROPOSITION 1        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proposition}
-For all rewriting sequences $\alpha: f \Rightarrow g$, $\alpha$ can be writen
-\[
-\alpha = \alpha_1 \bullet \alpha_2 \bullet \alpha_3 \bullet \cdots \bullet
-  \alpha_i
-\]
-
-\begin{proof}
-We'll prove it by induction of the size of the rewriting sequence using the
-  properties of the bifunctors.
-With a atomic rule, we already have
-\[
-\alpha = \alpha_1
-\]
-For the inductive step let's assume $\beta$ is
-\[
-\alpha = \alpha_1 \bullet \alpha_2 \bullet \alpha_3 \bullet \cdots \bullet \beta
-\]
-If $s$ is such that
-\[
-\beta = (\beta_1 \bullet \beta_2) \circ (\beta_3 \bullet \beta_4)
-\]
-Then using the interchange law we can write
-\[
-\beta = (\beta_1 \circ \beta_3) \bullet (\beta_2 \circ \beta_4)
-\]
-So we have 
-\begin{align}
-\alpha &= \alpha_1 \bullet \alpha_2 \bullet \alpha_3 \bullet \cdots \bullet
-  (\beta_1 \circ \beta_3) \bullet (\beta_2 \circ \beta_4) \cr
-\alpha &= \alpha_1 \bullet \alpha_2 \bullet \alpha_3 \bullet \cdots \bullet
-  \alpha_{i - 1} \bullet \alpha_i
-\end{align}
-Otherwise we can always add an identity rewriting rule to get the interchange
-  law.
-\begin{align}
-\beta_1 \circ (\beta_3 \bullet \beta_4) &\Rightarrow (\beta_1 \bullet id) \circ
-  (\beta_2 \bullet \beta_3) \cr
-(\beta_1 \bullet \beta_2) \circ \beta_3 &\Rightarrow (\beta_1 \bullet \beta_2)
-  \circ (id \bullet \beta_3)
-\end{align}
-The same is true with
-\[
-\beta = (\beta_1 \bullet \beta_2) \otimes (\beta_3 \bullet \beta_4)
-\]
-\end{proof}
+  For all rewriting sequences $\alpha: f \Rightarrow g$, $\alpha$ can be writen
+  \[
+    \alpha = \alpha_1 \bullet \alpha_2 \bullet \alpha_3 \bullet \cdots \bullet
+      \alpha_i
+  \]
+  
+  \begin{proof}
+    We'll prove it by induction of the size of the rewriting sequence using the
+      properties of the bifunctors.
+    With a atomic rule, we already have
+    \[
+      \alpha = \alpha_1
+    \]
+    For the inductive step let's assume $\beta$ is
+    \[
+      \alpha = \alpha_1 \bullet \alpha_2 \bullet \alpha_3 \bullet \cdots \bullet
+        \beta
+    \]
+    If $s$ is such that
+    \[
+      \beta = (\beta_1 \bullet \beta_2) \circ (\beta_3 \bullet \beta_4)
+    \]
+    Then using the interchange law we can write
+    \[
+      \beta = (\beta_1 \circ \beta_3) \bullet (\beta_2 \circ \beta_4)
+    \]
+    So we have 
+    \begin{align}
+      \alpha &= \alpha_1 \bullet \alpha_2 \bullet \alpha_3 \bullet \cdots
+        \bullet (\beta_1 \circ \beta_3) \bullet (\beta_2 \circ \beta_4) \\
+      \alpha &= \alpha_1 \bullet \alpha_2 \bullet \alpha_3 \bullet \cdots
+        \bullet \alpha_{i - 1} \bullet \alpha_i
+    \end{align}
+    Otherwise we can always add an identity rewriting rule to get the
+      interchange law.
+    \begin{align}
+      \beta_1 \circ (\beta_3 \bullet \beta_4) &\Rightarrow (\beta_1 \bullet id)
+        \circ (\beta_2 \bullet \beta_3) \\
+      (\beta_1 \bullet \beta_2) \circ \beta_3 &\Rightarrow (\beta_1 \bullet
+        \beta_2) \circ (id \bullet \beta_3)
+    \end{align}
+    The same is true with
+    \[
+      \beta = (\beta_1 \bullet \beta_2) \otimes (\beta_3 \bullet \beta_4)
+    \]
+  \end{proof}
 \end{proposition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        REWRITING SYSTEM PROPOSITION 2        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proposition}
-For all rewriting sequences $\alpha: f \Rightarrow g$, $\alpha$ can be writen
-\begin{align}
-\alpha &= \alpha_1 \circ \alpha_2 \circ \alpha_3 \circ \cdots \circ \alpha_j \cr
-\alpha &= \alpha_1 \otimes \alpha_2 \otimes \alpha_3 \otimes \cdots \otimes
-  \alpha_k
-\end{align}
-
-\begin{proof}
-The proof is the same but this time we have to use
-\[
-(\alpha \otimes \beta) \circ (\gamma \otimes \delta) = (\alpha \circ \gamma)
-  \otimes (\beta \circ \delta)
-\]
-\end{proof}
+  For all rewriting sequences $\alpha: f \Rightarrow g$, $\alpha$ can be writen
+  \begin{align}
+    \alpha &= \alpha_1 \circ \alpha_2 \circ \alpha_3 \circ \cdots \circ \alpha_j
+      \\
+    \alpha &= \alpha_1 \otimes \alpha_2 \otimes \alpha_3 \otimes \cdots \otimes
+      \alpha_k
+  \end{align}
+  
+  \begin{proof}
+    The proof is the same but this time we have to use
+    \[
+      (\alpha \otimes \beta) \circ (\gamma \otimes \delta) = (\alpha \circ
+        \gamma) \otimes (\beta \circ \delta)
+    \]
+  \end{proof}
 \end{proposition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        REWRITING SYSTEM PROPOSITION 2 COROLLARY        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{corollary}
-For all rewriting sequences $r: f \Rightarrow g$, $r$ can be writen
-\[
-\alpha = \alpha_1 \bullet \alpha_2 \bullet \alpha_3 \bullet \cdots \bullet
-  \alpha_i
-\]
-Such that for all $i$
-\[
-\alpha_i = \alpha_{i, 1} \circ \alpha_{i, 2} \circ \alpha_{i, 3} \circ \cdots
-  \circ \alpha_{i, j}
-\]
-and for all $j$
-\[
-\alpha_{i, j} = \bigotimes_k^l \alpha_{i, j, k}
-\]
-a tensor products of rewriting sequences.
+  For all rewriting sequences $r: f \Rightarrow g$, $r$ can be writen
+  \[
+    \alpha = \alpha_1 \bullet \alpha_2 \bullet \alpha_3 \bullet \cdots \bullet
+      \alpha_i
+  \]
+  Such that for all $i$
+  \[
+    \alpha_i = \alpha_{i, 1} \circ \alpha_{i, 2} \circ \alpha_{i, 3} \circ
+      \cdots \circ \alpha_{i, j}
+  \]
+  and for all $j$
+  \[
+    \alpha_{i, j} = \bigotimes_k^l \alpha_{i, j, k}
+  \]
+  a tensor products of rewriting sequences.
 \end{corollary}
 
 \section{Quantale Enriched Categories}
@@ -282,56 +293,56 @@ a tensor products of rewriting sequences.
 %%        QUANTALE DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{definition}[Quantale $\mathbb{Q}$]
-A quantale is a \emph{lattice} with a binary operator such that for all
-  elements of the lattice $x, y$ and $\{x_i\}_i, \{y_i\}_i$
-\begin{align}
-x \oplus \bigvee y_i &= \bigvee x \oplus y_i \cr
-\left(\bigvee x_i\right) \oplus y &= \bigvee x_i \oplus y
-\end{align}
-
-We require that for all $x$, it exist $x^{-1}$ such that
-\begin{align}
-x \oplus x^{-1} &= e \cr
-x^{-1} \oplus x &= e
-\end{align}
-
-Such a quantale can be seen as a monoidal category over a \emph{group}.
+  A quantale is a \emph{lattice} with a binary operator such that for all
+    elements of the lattice $x, y$ and $\{x_i\}_i, \{y_i\}_i$
+  \begin{align}
+    x \oplus \bigvee y_i &= \bigvee x \oplus y_i \\
+    \left(\bigvee x_i\right) \oplus y &= \bigvee x_i \oplus y
+  \end{align}
+  
+  We require that for all $x$, it exist $x^{-1}$ such that
+  \begin{align}
+    x \oplus x^{-1} &= e \\
+    x^{-1} \oplus x &= e
+  \end{align}
+  
+  Such a quantale can be seen as a monoidal category over a \emph{group}.
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        Q-ENRICHED CATEGORY DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{definition}[$\mathbb{Q}$-enriched category]
-A $\mathbb{Q}$-enriched category $\mathcal{E}$ is
-
-\begin{itemize}
-\item A set of objects
-\item For all objects $(a, b)$, $\mathcal{E}(a, b) \in \mathbb{Q}$
-\end{itemize}
-
-such that for all objects $a$
-\[
-e \succeq \mathcal{E}(a, a)
-\]
-for all objects (a, b, c)
-\[
-\mathcal{E}(b, c) \oplus \mathcal{E}(a, b) \succeq \mathcal{E}(a, c)
-\]
+  A $\mathbb{Q}$-enriched category $\mathcal{E}$ is
+  
+  \begin{itemize}
+    \item A set of objects
+    \item For all objects $(a, b)$, $\mathcal{E}(a, b) \in \mathbb{Q}$
+  \end{itemize}
+  
+  such that for all objects $a$
+  \[
+    e \succeq \mathcal{E}(a, a)
+  \]
+  for all objects (a, b, c)
+  \[
+    \mathcal{E}(b, c) \oplus \mathcal{E}(a, b) \succeq \mathcal{E}(a, c)
+  \]
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        MONOIDAL Q-ENRICHED CATEGORY DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{definition}[Monoidal $\mathbb{Q}$-enriched category]
-$(E, \otimes)$ is strictly monoidal if
-\[
-\mathcal{E}(a, b) \oplus \mathcal{E}(a', b') \succeq \mathcal{E}(a \otimes a',
-  b \otimes b')
-\]
-and symmetric if
-\[
-e \succeq \mathcal{E}(a \otimes b, b \otimes a)
-\]
+  $(E, \otimes)$ is strictly monoidal if
+  \[
+    \mathcal{E}(a, b) \oplus \mathcal{E}(a', b') \succeq \mathcal{E}(a \otimes
+      a', b \otimes b')
+  \]
+  and symmetric if
+  \[
+    e \succeq \mathcal{E}(a \otimes b, b \otimes a)
+  \]
 \end{definition}
 
 
@@ -342,202 +353,206 @@ e \succeq \mathcal{E}(a \otimes b, b \otimes a)
 %%        HOMOMORPHISM DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{definition}
-For all $(A, B) \in \mathcal{P}$ we define a homomorphism $V: \mathcal{C}(A, B)
-  \to \mathbb{Q}$, such that for all gates $f$
-\[
-V(f) \in \mathbb{Q}
-\]
-For all rewriting rules $\alpha: f \Rightarrow g$
-\[
-V(\alpha) = V(f) \oplus V(g)^{-1}
-\]
-
-On gates
-\begin{align}
-V(f \circ g) &\preceq V(f) \oplus V(g) \cr
-V(f \otimes g) &\preceq V(f) \oplus V(g)
-\end{align}
-
-On rewriting sequences
-\begin{align}
-V(\alpha \circ \beta) &= V(\alpha) \oplus V(\beta) \cr
-V(\alpha \otimes \beta) &= V(\alpha) \oplus V(\beta) \cr
-V(\alpha \bullet \beta) &= V(\alpha) \oplus V(\beta)
-\end{align}
+  For all $(A, B) \in \mathcal{P}$ we define a homomorphism $V:
+    \mathcal{C}(A, B) \to \mathbb{Q}$, such that for all gates $f$
+  \[
+    V(f) \in \mathbb{Q}
+  \]
+  For all rewriting rules $\alpha: f \Rightarrow g$
+  \[
+    V(\alpha) = V(f) \oplus V(g)^{-1}
+  \]
+  
+  On gates
+  \begin{align}
+    V(f \circ g) &\preceq V(f) \oplus V(g) \\
+    V(f \otimes g) &\preceq V(f) \oplus V(g)
+  \end{align}
+  
+  On rewriting sequences
+  \begin{align}
+    V(\alpha \circ \beta) &= V(\alpha) \oplus V(\beta) \\
+    V(\alpha \otimes \beta) &= V(\alpha) \oplus V(\beta) \\
+    V(\alpha \bullet \beta) &= V(\alpha) \oplus V(\beta)
+  \end{align}
 \end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        HOMOMORPHISM REMARK        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{remark}
-Note that because
-\[
-V(\alpha: f \Rightarrow g) = V(f) \oplus V(g)^{-1}
-\]
-then
-\begin{align}
-V(\alpha: f \Rightarrow f) &= V(f) \oplus V(f)^{-1} \cr
-&= e
-\end{align}
-that is
-\begin{align}
-\forall f, V(id_f) = e
-\end{align}
+  Note that because
+  \[
+    V(\alpha: f \Rightarrow g) = V(f) \oplus V(g)^{-1}
+  \]
+  then
+  \begin{align}
+    V(\alpha: f \Rightarrow f) &= V(f) \oplus V(f)^{-1} \\
+    &= e
+  \end{align}
+  that is
+  \[
+    \forall f, V(id_f) = e
+  \]
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        HOMOMORPHISM PROPOSITION 1        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proposition}
-Given two rewriting sequence $\alpha, \beta: f \Rightarrow g$, then $V(\alpha) =
-  V(\beta)$.
-
-\begin{proof}
-The set of all possible rewriting sequences is freely generated by the set of
-rewriting rules, $\bullet$, $\circ$ and $\otimes$ so both $\alpha$ and $\beta$
-  can be written
-\begin{align}
-\alpha &= \alpha_1 \odot \alpha_2 \odot \alpha_3 \odot \cdots \odot \alpha_n \cr
-\beta &= \beta_1 \odot \beta_2 \odot \beta_3 \odot \cdots \odot \beta_m
-\end{align}
-with $\odot \in \{\bullet, \circ, \otimes\}$ and for all i $\alpha_i$ and
-$\beta_i$ are rewriting rule.
-If $n = 1$ then $\alpha$ is a rewriting rule, so $V(r) = V(f) \oplus V(g)^{-1}$.
-Otherwise
-\begin{align}
-V(\alpha) &= V(\alpha_1 \odot \alpha_2 \odot \cdots \odot \alpha_n) \cr
-&= V(\alpha_1) \oplus V(\alpha_2) \oplus \cdots \oplus V(\alpha_n) \cr
-&= V(f \Rightarrow h_1) \oplus V(h_1 \Rightarrow h_2) \oplus \cdots \oplus
-  V(h_n \Rightarrow g) \cr
-&= V(f) \oplus V(h_1)^{-1} \oplus V(h_1) \oplus V(h_2)^{-1} \oplus \cdots
-  \oplus V(h_n) \oplus V(g)^{-1}
-\end{align}
-A easy inductive proof can show us that
-\[
-V(f) \oplus V(h_1)^{-1} \oplus V(h_1) \oplus V(h_2)^{-1} \oplus V(h_2) \oplus
-  \cdots \oplus V(h_n) \oplus V(g)^{-1} = V(f) \oplus V(g)^{-1}
-\]
-The same is true for $\beta$, so
-\[
-V(\alpha) = V(\beta) = V(f) \oplus V(g)^{-1}
-\]
-\end{proof}
+  Given two rewriting sequence $\alpha, \beta: f \Rightarrow g$, then $V(\alpha)
+    = V(\beta)$.
+  
+  \begin{proof}
+    The set of all possible rewriting sequences is freely generated by the set
+      of rewriting rules, $\bullet$, $\circ$ and $\otimes$ so both $\alpha$ and
+      $\beta$ can be written
+    \begin{align}
+      \alpha &= \alpha_1 \odot \alpha_2 \odot \alpha_3 \odot \cdots \odot
+        \alpha_n \\
+      \beta &= \beta_1 \odot \beta_2 \odot \beta_3 \odot \cdots \odot \beta_m
+    \end{align}
+    with $\odot \in \{\bullet, \circ, \otimes\}$ and for all i $\alpha_i$ and
+      $\beta_i$ are rewriting rule.
+    If $n = 1$ then $\alpha$ is a rewriting rule, so $V(r) = V(f) \oplus
+      V(g)^{-1}$.
+    Otherwise
+    \begin{align}
+      V(\alpha) &= V(\alpha_1 \odot \alpha_2 \odot \cdots \odot \alpha_n) \\
+      &= V(\alpha_1) \oplus V(\alpha_2) \oplus \cdots \oplus V(\alpha_n) \\
+      &= V(f \Rightarrow h_1) \oplus V(h_1 \Rightarrow h_2) \oplus \cdots \oplus
+        V(h_n \Rightarrow g) \\
+      &= V(f) \oplus V(h_1)^{-1} \oplus V(h_1) \oplus V(h_2)^{-1} \oplus \cdots
+        \oplus V(h_n) \oplus V(g)^{-1}
+    \end{align}
+    A easy inductive proof can show us that
+    \[
+      V(f) \oplus V(h_1)^{-1} \oplus V(h_1) \oplus V(h_2)^{-1} \oplus V(h_2)
+        \oplus \cdots \oplus V(h_n) \oplus V(g)^{-1} = V(f) \oplus V(g)^{-1}
+    \]
+    The same is true for $\beta$, so
+    \[
+      V(\alpha) = V(\beta) = V(f) \oplus V(g)^{-1}
+    \]
+  \end{proof}
 \end{proposition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        HOMOMORPHISM PROPOSITION 1 COROLLARY        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{corollary}
-For all rewriting sequences $\alpha: f \Rightarrow g$, then $V(\alpha) = V(f)
-  \oplus V(g)^{-1}$.
-Note that the definition of $V$ gives that only for rewriting rules.
+  For all rewriting sequences $\alpha: f \Rightarrow g$, then $V(\alpha) = V(f)
+    \oplus V(g)^{-1}$.
+  Note that the definition of $V$ gives that only for rewriting rules.
 \end{corollary}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        HOMOMORPHISM PROPOSITION 2        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proposition}
-The following category $\mathcal{P}(\mathbb{Q})$ is a $\mathbb{Q}$-category
-\begin{itemize}
-\item A set of objects which are the gates of $\mathcal{P}$
-\item For all objects $(f, g)$
-\end{itemize}
-\[
-\mathcal{E}(f, g) =
-\begin{cases}
-\textrm{if } f \Rightarrow g \in \mathcal{P}, &V(f \Rightarrow g) \cr
-\textrm{otherwise } &\top
-\end{cases}
-\]
-With $\top \in \mathbb{Q}$ such that for all $x \in \mathbb{Q}$
-\[
-x \preceq \top
-\]
-
-\begin{proof}
-For all gates $(f, g)$, if it exists a unique transformation $f \Rightarrow
-  g$, then
-\begin{align}
-\mathcal{E}(f, g) &= V(f \Rightarrow g) \in \mathbb{Q} \cr
-&= V(f) \oplus V(g)^{-1}
-\end{align}
-otherwise we already have $\mathcal{E}(f, g) = \top \in \mathbb{Q}$.
-For all gates $f$, we know that there is a identity transformation $f
-  \Rightarrow f$ and
-\begin{align}
-\mathcal{E}(f, f) &= V(id_f) \cr
-&= V(f \Rightarrow f)\cr
-&= V(f) \oplus V(f)^{-1} \cr
-&= e
-\end{align}
-Finally, for all gates $(f, g, h)$ such that there exists $\alpha: f \Rightarrow
-  g$ and $\beta: g \Rightarrow h$ in $\mathcal{P}$, then the homomorphism $V$
-    give us
-\begin{align}
-\mathcal{E}(f, h) &= V(f \Rightarrow h) \cr
-&= V(\alpha \circ \beta) \cr
-&= V(\alpha) \oplus V(\beta) \cr
-&= V(g \Rightarrow h) \oplus V(f \Rightarrow g) \cr
-&= \mathcal{E}(g, h) \oplus \mathcal{E}(f, g)
-\end{align}
-If either $\alpha$ or $\beta$ doesn't exists in $\mathcal{P}$ then
-\[
-\mathcal{E}(b, c) \oplus \mathcal{E}(a, b) \succeq \mathcal{E}(a, c)
-\]
-become
-\[\begin{matrix}
-&\mathcal{E}(b, c) \oplus \top &\succeq \top \cr
-\textrm{or} &\top \oplus \mathcal{E}(a, b) &\succeq \top \cr
-\textrm{or} &\top \oplus \top &\succeq \top
-\end{matrix}\]
-which is still true.
-\end{proof}
+  The following category $\mathcal{P}(\mathbb{Q})$ is a $\mathbb{Q}$-category
+  \begin{itemize}
+    \item A set of objects which are the gates of $\mathcal{P}$
+    \item For all objects $(f, g)$
+  \end{itemize}
+  \[
+    \mathcal{E}(f, g) =
+    \begin{cases}
+      \textrm{if } f \Rightarrow g \in \mathcal{P}, &V(f \Rightarrow g) \\
+      \textrm{otherwise } &\top
+    \end{cases}
+  \]
+  With $\top \in \mathbb{Q}$ such that for all $x \in \mathbb{Q}$
+  \[
+    x \preceq \top
+  \]
+  
+  \begin{proof}
+    For all gates $(f, g)$, if it exists a unique transformation $f \Rightarrow
+      g$, then
+    \begin{align}
+      \mathcal{E}(f, g) &= V(f \Rightarrow g) \in \mathbb{Q} \\
+      &= V(f) \oplus V(g)^{-1}
+    \end{align}
+    otherwise we already have $\mathcal{E}(f, g) = \top \in \mathbb{Q}$.
+    For all gates $f$, we know that there is a identity transformation $f
+      \Rightarrow f$ and
+    \begin{align}
+      \mathcal{E}(f, f) &= V(id_f) \\
+      &= V(f \Rightarrow f)\\
+      &= V(f) \oplus V(f)^{-1} \\
+      &= e
+    \end{align}
+    Finally, for all gates $(f, g, h)$ such that there exists $\alpha: f
+      \Rightarrow g$ and $\beta: g \Rightarrow h$ in $\mathcal{P}$, then the
+      homomorphism $V$ give us
+    \begin{align}
+      \mathcal{E}(f, h) &= V(f \Rightarrow h) \\
+      &= V(\alpha \circ \beta) \\
+      &= V(\alpha) \oplus V(\beta) \\
+      &= V(g \Rightarrow h) \oplus V(f \Rightarrow g) \\
+      &= \mathcal{E}(g, h) \oplus \mathcal{E}(f, g)
+    \end{align}
+    If either $\alpha$ or $\beta$ doesn't exists in $\mathcal{P}$ then
+    \[
+      \mathcal{E}(b, c) \oplus \mathcal{E}(a, b) \succeq \mathcal{E}(a, c)
+    \]
+    become
+    \[
+      \begin{matrix}
+        &\mathcal{E}(b, c) \oplus \top &\succeq \top \\
+        \textrm{or} &\top \oplus \mathcal{E}(a, b) &\succeq \top \\
+        \textrm{or} &\top \oplus \top &\succeq \top
+      \end{matrix}
+    \]
+    which is still true.
+  \end{proof}
 \end{proposition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        HOMOMORPHISM PROPOSITION 3        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proposition}
-$\mathcal{P}(\mathbb{Q})$ is strictly symmetric monoidal with $\otimes$, the
-  2-functor of $\mathcal{P}$.
-
-\begin{proof}
-The monoidal structure is immediate using the fact that
-\[
-V(\alpha) \oplus V(\beta) \succeq V(\alpha \otimes \beta)
-\]
-that is
-\[
-V(\alpha: f \Rightarrow g) \oplus V(\beta: f' \Rightarrow g') = V(\alpha \otimes
-  \beta: f \otimes f' \Rightarrow g \otimes g')
-\]
-so
-\[
-\mathcal{E}(f, g) \oplus \mathcal{E}(f', g') = \mathcal{E}(f \otimes f', g
-  \otimes g')
-\]
-For the symmetry, we use the fact that $V(f \Rightarrow g) \oplus V(g
-  \Rightarrow f) = e$
-\begin{align}
-\mathcal{E}(f \otimes g, g \otimes f) &= V(f \otimes g \Rightarrow g \otimes g)
-  \cr
-&= V(f \Rightarrow g \otimes g \Rightarrow f) \cr
-&\preceq V(f \Rightarrow g) \oplus V(g \Rightarrow f) \cr
-&= V(f) \oplus V(g)^{-1} \oplus V(g) \oplus V(f)^{-1} \cr
-&= e
-\end{align}
-\end{proof}
+  $\mathcal{P}(\mathbb{Q})$ is strictly symmetric monoidal with $\otimes$, the
+    2-functor of $\mathcal{P}$.
+  
+  \begin{proof}
+    The monoidal structure is immediate using the fact that
+    \[
+      V(\alpha) \oplus V(\beta) \succeq V(\alpha \otimes \beta)
+    \]
+    that is
+    \[
+      V(\alpha: f \Rightarrow g) \oplus V(\beta: f' \Rightarrow g') = V(\alpha
+        \otimes \beta: f \otimes f' \Rightarrow g \otimes g')
+    \]
+    so
+    \[
+      \mathcal{E}(f, g) \oplus \mathcal{E}(f', g') = \mathcal{E}(f \otimes f', g
+        \otimes g')
+    \]
+    For the symmetry, we use the fact that $V(f \Rightarrow g) \oplus V(g
+      \Rightarrow f) = e$
+    \begin{align}
+      \mathcal{E}(f \otimes g, g \otimes f) &= V(f \otimes g \Rightarrow g
+        \otimes g) \\
+      &= V(f \Rightarrow g \otimes g \Rightarrow f) \\
+      &\preceq V(f \Rightarrow g) \oplus V(g \Rightarrow f) \\
+      &= V(f) \oplus V(g)^{-1} \oplus V(g) \oplus V(f)^{-1} \\
+      &= e
+    \end{align}
+  \end{proof}
 \end{proposition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        HOMOMORPHISM PROPOSITION 3 COROLLARY        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{corollary}
-Given $\alpha: f \Rightarrow g$ a rewriting sequence, and $\alpha^{-1}: g
-  \Rightarrow f$ the inverse rewriting sequence
-\[
-V(s \otimes s^{-1}) = e
-\]
+  Given $\alpha: f \Rightarrow g$ a rewriting sequence, and $\alpha^{-1}: g
+    \Rightarrow f$ the inverse rewriting sequence
+  \[
+    V(s \otimes s^{-1}) = e
+  \]
 \end{corollary}
 
 
