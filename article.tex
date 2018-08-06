@@ -29,113 +29,106 @@
 \section{Mathematical Preliminaries}
 \label{sec:prelim}
 
+We assume that the reader is familiar with the notion of symmetric
+monoidal category; a standard reference is
+\cite{MacLane:CatsWM:1971}.  
+
+\begin{definition}\label{def:PROP}
+  A \emph{PROP} is strict symmetric monoidal category whose objects
+  are the natural numbers, and where the action of the tensor product on
+  objects is given by addition.
+\end{definition}
+
+PROPs have been used to formalise many algebraic structures
+\cite{Lack:2004sf}, however our interest here is to formalise a
+general notion of \emph{circuit} as a free PROP over a certain set of
+gates.
+
+\begin{example}  \label{ex:boolean-circs}
+  TODO -- boolean circuits
+\end{example}
+
+\begin{example}  \label{ex:quantum-circs}
+  TODO -- quanutm circuits
+\end{example}
+
+\begin{example}  \label{ex:zx-calculus}
+  TODO -- zx-calculus
+\end{example}
+
+\noindent
+Note that all of these examples usually include an equational theory.
+We will don't include these equations in the  definition since we will
+model them as higher dimensional arrows.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        2-CATEGORY DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{2-Category}
 
-A \emph{strict} 2-category \catC is a category \emph{enriched over \textbf{Cat}}, the category of categories.
-
+\begin{definition}  \label{def:strict-two-cat}
+A \emph{strict} 2-category \catC is a category \emph{enriched over
+  \textbf{Cat}}, the category of categories, \emph{viz:}
 \begin{itemize}
-\item objects are natural number $\mathbb{N}$, called \emph{0-cells}
-\item for all 0-cells $(a, b)$, a category $\catC(a, b)$ with
-\begin{itemize}
-\item objects $f: a \to b$, called \emph{1-cells}
-\item morphisms are called \emph{2-cells}
-\item for all 2-cells $r: f \Rightarrow g$ and $s: g \Rightarrow h$, a composition operator $r \bullet s: f \Rightarrow h$ called \emph{vertical composition}
+\item A category \catC, whose objects and arrows are known as
+  0-cells and 1-cells respectively.
+\item For every pair of objects $A$ and $B$, we have a
+  category $\catC(A, B)$, whose arrows are known as 2-cells.
+\item For 2-cells $\alpha : f \Rightarrow g$ and $\beta : g
+  \Rightarrow h$ in $\catC(A,B)$ their (vertical) composite is denoted
+  $\beta\bullet\alpha : f \Rightarrow h$.
+\item For every 1-cell $f:A\to B$ we denote its identity 2-cell by
+  $Id_f:f \Rightarrow f$.
+\item For all 0-cells $a$, $b$, $c$ a bifunctor $\circ: \catC(b, c)
+  \times \catC(a, b) \to \catC(a, c)$ called \emph{horizontal
+    composition} of 2-cells.
 \end{itemize}
-\item for all 0-cells $a$ and all 1-cells $f: a \to a \in \catC(a, a)$, there is an identity 2-cell $r: f \Rightarrow f$, written $Id_f$
-\item for all 0-cells $(a, b, c)$ a bifunctor $\circ: \catC(b, c) \times \catC(a, b) \to \catC(a, c)$ called \emph{horizontal composition}
-\end{itemize}
+\REM{Need here the name for a 2-cat with all 2-cells invertible;  the
+  term 2-groupoid refers to the case where both 1- and 2-cells are
+  invertible.}
+\end{definition}
 
-In the following we'll always write $a, b, c$ for \emph{0-cells}, $f, g, h$ for \emph{1-cells} and $r, s, t$ for \emph{2-cells}.
+\noindent
+In the following we'll always write $A, B, C$ for \emph{0-cells}, $f,
+g, h$ for \emph{1-cells} and $\alpha$, $\beta$, $\gamma$ for
+\emph{2-cells}.
+
+\begin{definition}
+  \label{def:two-functor}
+  DEFINITION OF 2-FUNCTOR here
+\end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        MONOIDAL 2-CATEGORY DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Monoidal 2-category}
 
-A \emph{strict} monoidal 2-category $(\catC, \otimes)$ is a strict 2-category with
-
+\begin{definition}\label{def:monoidal-two-cat}
+A \emph{strict} monoidal 2-category $(\catC, \otimes)$ is a strict
+2-category with
+\REM{Is this \emph{required}?  Doesn't it follow from the  definition
+  of bifunctor?  (It does in the 1-category case, so it should do
+  here!)}
 \begin{itemize}
-\item a 2-bifunctor $\otimes: \catC \times \catC \to \catC$ such that on 2-cells $r, s, t, u$
+\item a 2-bifunctor $\otimes: \catC \times \catC \to \catC$ such that
+  on 2-cells $r, s, t, u$
 \[
 (r \otimes s) \circ (t \otimes u) = (r \circ t) \otimes (s \circ u)
 \]
-\end{itemize}
+\end{itemize}  
+\end{definition}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        INTERCHANGE LAW REMARK        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{remark}[Interchange law]
-Because $\circ$ and $\otimes$ are bifunctor, for all 0-cells $a, b \in \catC$ and all 2-cells $r, s, t, u \in \catC(a, b)$
-
+Since $\circ$ and $\otimes$ are bifunctorial, we have the following
+interchange equations for all 0-cells $A, B \in \catC$ and all 2-cells $r, s, t, u \in \catC(A, B)$
 \begin{align}
-(r \circ s) \bullet (t \circ u) &= (r \bullet t) \circ (s \bullet u) \cr
+(r \circ s) \bullet (t \circ u) &= (r \bullet t) \circ (s \bullet u) \\
 (r \otimes s) \bullet (t \otimes u) &= (r \bullet t) \otimes (s \bullet u)
 \end{align}
 \end{remark}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%        QUANTALE DEFINITION        %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Quantale}
-
-A quantale $\mathbb{Q}$, over a \emph{group}, is a monoidal category
-
-\begin{itemize}
-\item objects are elements of a lattice $L$
-\item for all objects $(x, y)$ there is a morphism between $x$ and $y$ iff $x \succeq y$ in $L$.
-\item a unit objet $e \in L$
-\item a monoidal operator $\oplus: Q \times Q \to Q$
-\end{itemize}
-
-\noindent such that for all $x, y \in L$ and $\{x_i\}_i, \{y_i\}_i \subseteq L$
-\begin{align}
-x \oplus \bigvee y_i &= \bigvee x \oplus y_i \cr
-\left(\bigvee x_i\right) \oplus y &= \bigvee x_i \oplus y
-\end{align}
-
-We require that for all objects $x$ of $\mathbb{Q}$, it exist an object $x^{-1}$ such that
-\begin{align}
-x \oplus x^{-1} &= e \cr
-x^{-1} \oplus x &= e
-\end{align}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%        Q-ENRICHED CATEGORY DEFINITION        %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{$\mathbb{Q}$-enriched category}
-
-A $\mathbb{Q}$-enriched category \catE is
-
-\begin{itemize}
-\item A set of objects
-\item For all objects $(a, b)$, $\catE(a, b) \in \mathbb{Q}$
-\end{itemize}
-
-such that for all object $a$
-\[
-e \succeq \catE(a, a)
-\]
-for all objects (a, b, c)
-\[
-\catE(b, c) \oplus \catE(a, b) \succeq \catE(a, c)
-\]
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%        MONOIDAL Q-ENRICHED CATEGORY DEFINITION        %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Monoidal $\mathbb{Q}$-enriched category}
-
-$(E, \otimes)$ is strictly monoidal if
-\[
-\catE(a, b) \oplus \catE(a', b') \succeq \catE(a \otimes a', b \otimes b')
-\]
-and symmetric if
-\[
-e \succeq \catE(a \otimes b, b \otimes a)
-\]
 
 \section{Rewriting systems as 2-PROPS}
 \label{sec:rewriting}
@@ -242,6 +235,72 @@ r_{i, j} = \bigotimes_k^l r_{i, j, k}
 \]
 a tensor products of transformations.
 \end{corollary}
+
+\section{Quantale Enriched Categories}
+\label{sec:quant-enrich-categ}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        QUANTALE DEFINITION        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Quantale}
+
+A quantale $\mathbb{Q}$, over a \emph{group}, is a monoidal category
+
+\begin{itemize}
+\item objects are elements of a lattice $L$
+\item for all objects $(x, y)$ there is a morphism between $x$ and $y$ iff $x \succeq y$ in $L$.
+\item a unit objet $e \in L$
+\item a monoidal operator $\oplus: Q \times Q \to Q$
+\end{itemize}
+
+\noindent such that for all $x, y \in L$ and $\{x_i\}_i, \{y_i\}_i \subseteq L$
+\begin{align}
+x \oplus \bigvee y_i &= \bigvee x \oplus y_i \cr
+\left(\bigvee x_i\right) \oplus y &= \bigvee x_i \oplus y
+\end{align}
+
+We require that for all objects $x$ of $\mathbb{Q}$, it exist an object $x^{-1}$ such that
+\begin{align}
+x \oplus x^{-1} &= e \cr
+x^{-1} \oplus x &= e
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        Q-ENRICHED CATEGORY DEFINITION        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{$\mathbb{Q}$-enriched category}
+
+A $\mathbb{Q}$-enriched category \catE is
+
+\begin{itemize}
+\item A set of objects
+\item For all objects $(a, b)$, $\catE(a, b) \in \mathbb{Q}$
+\end{itemize}
+
+such that for all object $a$
+\[
+e \succeq \catE(a, a)
+\]
+for all objects (a, b, c)
+\[
+\catE(b, c) \oplus \catE(a, b) \succeq \catE(a, c)
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        MONOIDAL Q-ENRICHED CATEGORY DEFINITION        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Monoidal $\mathbb{Q}$-enriched category}
+
+$(E, \otimes)$ is strictly monoidal if
+\[
+\catE(a, b) \oplus \catE(a', b') \succeq \catE(a \otimes a', b \otimes b')
+\]
+and symmetric if
+\[
+e \succeq \catE(a \otimes b, b \otimes a)
+\]
 
 
 \section{$\mathbb{Q}$-valued rewriting systems}
