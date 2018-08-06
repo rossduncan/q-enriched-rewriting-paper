@@ -7,14 +7,10 @@
 \usepackage{rwd-drafting}
 
 \input{preamble.tex}
-%%% some diagrams we won;t need in this papaer
-%\input{tikzpreamble.tex}
-%\input{quantumcircuits.tex}
+\input{tikzpreamble.tex}
+\input{quantumcircuits.tex}
 
 \input{front-matter.tex}
-
-
-
 
 \begin{document}
 % For article.cls abstract goes here 
@@ -49,7 +45,27 @@ gates.
 \end{example}
 
 \begin{example}  \label{ex:quantum-circs}
-  TODO -- quanutm circuits
+  The main example of interest is \Circ, the PROP of quantum circuits.
+  Different authors, and different hardware manufacturers, prefer
+  different primitive gate sets but the following is typical:
+  \[
+  \begin{array}{cccccccccc}
+    \circZ{{}} & \qquad  & \circX{{}} & \qquad & \circH \\ 
+    \vstrut{1.2em}
+    Z : 1 \to 1 && X : 1 \to 1 && H : 1 \to 1\\
+    \\
+    \circbox{R_Z(\theta)} & \qquad & \circCPhase{\theta} & \qquad & \circCX  \\ 
+    \vstrut{1.2em}
+    R_Z(\theta) : 1 \to 1 &&  \CPhase\theta :2 \to 2 && \CX : 2 \to 2\\
+  \end{array}
+  \]
+  We omit the usual matrix interpretations but these can be found in
+  the standard textbook \cite{NieChu:QuantComp:2000}.  Note that in
+  this example we actually have an uncountable family of generating
+  gates, one for each value $\theta \in [0,2\pi)$.  Unlike the case of
+  Boolean circuits all quantum gates have the same number of inputs and
+  outputs.  In fact, \Circ is a \dag-PROP, but this will not concern
+  us here.
 \end{example}
 
 \begin{example}  \label{ex:zx-calculus}
