@@ -113,7 +113,9 @@ A \emph{strict} monoidal 2-category $(\catC, \otimes)$ is a strict
 \[
 (r \otimes s) \circ (t \otimes u) = (r \circ t) \otimes (s \circ u)
 \]
-\end{itemize}  
+\REM{This definition doesn't quite work without the additoin type
+  information on the 2-cells}
+\end{itemize}
 \end{definition}
 
 
@@ -129,13 +131,13 @@ interchange equations for all 0-cells $A, B \in \catC$ and all 2-cells $r, s, t,
 \end{align}
 \end{remark}
 
-
 \section{Rewriting systems as 2-PROPS}
 \label{sec:rewriting}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%        REWRITING SYSTEM        %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        REWRITING SYSTEM DEFINITION        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{definition}
 A \emph{groupoid} is a category where morphisms are invertible.
 Let's define the following strict monoidal 2-groupoid \catC
 
@@ -154,6 +156,7 @@ r \circ r^{-1} = id_f
 \item on $\catC(a, b)$, a functor $\catC(a, b) \otimes C(a', b') \to C(a + a', b + b')$
 \end{itemize}
 \end{itemize}
+\end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        REWRITING SYSTEM PROPOSITION 1        %%
@@ -240,38 +243,29 @@ a tensor products of transformations.
 \label{sec:quant-enrich-categ}
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        QUANTALE DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Quantale}
-
-A quantale $\mathbb{Q}$, over a \emph{group}, is a monoidal category
-
-\begin{itemize}
-\item objects are elements of a lattice $L$
-\item for all objects $(x, y)$ there is a morphism between $x$ and $y$ iff $x \succeq y$ in $L$.
-\item a unit objet $e \in L$
-\item a monoidal operator $\oplus: Q \times Q \to Q$
-\end{itemize}
-
-\noindent such that for all $x, y \in L$ and $\{x_i\}_i, \{y_i\}_i \subseteq L$
+\begin{definition}[Quantale $\mathbb{Q}$]
+A quantale is a \emph{lattice} with a binary operator such that for all elements of the lattice $x, y$ and $\{x_i\}_i, \{y_i\}_i$
 \begin{align}
 x \oplus \bigvee y_i &= \bigvee x \oplus y_i \cr
 \left(\bigvee x_i\right) \oplus y &= \bigvee x_i \oplus y
 \end{align}
 
-We require that for all objects $x$ of $\mathbb{Q}$, it exist an object $x^{-1}$ such that
+We require that for all $x$, it exist $x^{-1}$ such that
 \begin{align}
 x \oplus x^{-1} &= e \cr
 x^{-1} \oplus x &= e
 \end{align}
 
+Such a quantale can be seen as a monoidal category over a \emph{group}.
+\end{definition}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        Q-ENRICHED CATEGORY DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{$\mathbb{Q}$-enriched category}
-
+\begin{definition}[$\mathbb{Q}$-enriched category]
 A $\mathbb{Q}$-enriched category \catE is
 
 \begin{itemize}
@@ -287,12 +281,12 @@ for all objects (a, b, c)
 \[
 \catE(b, c) \oplus \catE(a, b) \succeq \catE(a, c)
 \]
+\end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        MONOIDAL Q-ENRICHED CATEGORY DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Monoidal $\mathbb{Q}$-enriched category}
-
+\begin{definition}[Monoidal $\mathbb{Q}$-enriched category]
 $(E, \otimes)$ is strictly monoidal if
 \[
 \catE(a, b) \oplus \catE(a', b') \succeq \catE(a \otimes a', b \otimes b')
@@ -301,36 +295,38 @@ and symmetric if
 \[
 e \succeq \catE(a \otimes b, b \otimes a)
 \]
+\end{definition}
+
 
 
 \section{$\mathbb{Q}$-valued rewriting systems}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%        HOMOMORPHISM        %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{$\catC(a, b)$ to $\mathbb{Q}$ homomorphism}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%        HOMOMORPHISM DEFINITION        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{definition}[$\catC(a, b)$ to $\mathbb{Q}$ homomorphism]
 Let's define the following homomorphism $F$ from $\catC(a, b)$ to $\mathbb{Q}$. For all $f: a \to b \in \{f_i\}_i$
 \[
-F(f) \in L
+V(f) \in \mathbb{Q}
 \]
 For all $r: f \Rightarrow g \in \{r_i\}_i$
 \[
-F(r) = F(f) \oplus F(g)^{-1}
+V(r) = V(f) \oplus V(g)^{-1}
 \]
 
 On 1-cells
 \begin{align}
-F(f \circ g) &\preceq F(f) \oplus F(g) \cr
-F(f \otimes g) &\preceq F(f) \oplus F(g)
+V(f \circ g) &\preceq V(f) \oplus V(g) \cr
+V(f \otimes g) &\preceq V(f) \oplus V(g)
 \end{align}
 
 On 2-cells
 \begin{align}
-F(r \circ s) &= F(r) \oplus F(s) \cr
-F(r \otimes s) &= F(r) \oplus F(s) \cr
-F(r \bullet s) &= F(r) \oplus F(s)
+V(r \circ s) &= V(r) \oplus V(s) \cr
+V(r \otimes s) &= V(r) \oplus V(s) \cr
+V(r \bullet s) &= V(r) \oplus V(s)
 \end{align}
+\end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        HOMOMORPHISM REMARK        %%
@@ -338,16 +334,16 @@ F(r \bullet s) &= F(r) \oplus F(s)
 \begin{remark}
 Note that because
 \[
-F(r: f \Rightarrow g) = F(f) \oplus F(g)^{-1}
+V(r: f \Rightarrow g) = V(f) \oplus V(g)^{-1}
 \]
 then
 \begin{align}
-F(r: f \Rightarrow f) &= F(f) \oplus F(f)^{-1} \cr
+V(r: f \Rightarrow f) &= V(f) \oplus V(f)^{-1} \cr
 &= e
 \end{align}
 that is
 \begin{align}
-\forall f, F(id_f) = e
+\forall f, V(id_f) = e
 \end{align}
 \end{remark}
 
@@ -355,7 +351,7 @@ that is
 %%        HOMOMORPHISM PROPOSITION 1        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{proposition}
-Given two transformations $r, s: f \Rightarrow g$, then $F(r) = F(s)$.
+Given two transformations $r, s: f \Rightarrow g$, then $V(r) = V(s)$.
 
 \begin{proof}
 The set of all possible transformation is freely generated by $\{r_i\}_i$, $\bullet$, $\circ$ and $\otimes$ so both $r$ and $s$ can be written
@@ -368,21 +364,21 @@ with $\odot \in \{\bullet, \circ, \otimes\}$ and for all i
 r_i &\in \{f_i\}_i \cr
 s_i &\in \{f_i\}_i
 \end{align}
-If $n = 1$ then $r \in \{f_i\}_i$, so $F(r) = F(f) \oplus F(g)^{-1}$.
+If $n = 1$ then $r \in \{f_i\}_i$, so $V(r) = V(f) \oplus V(g)^{-1}$.
 Otherwise
 \begin{align}
-F(r) &= F(r_1 \odot r_2 \odot \cdots \odot r_n) \cr
-&= F(r_1) \oplus F(r_2) \oplus \cdots \oplus F(r_n) \cr
-&= F(f \Rightarrow h_1) \oplus F(h_1 \Rightarrow h_2) \oplus \cdots \oplus F(h_n \Rightarrow g) \cr
-&= F(f) \oplus F(h_1)^{-1} \oplus F(h_1) \oplus F(h_2)^{-1} \oplus \cdots \oplus F(h_n) \oplus F(g)^{-1}
+V(r) &= V(r_1 \odot r_2 \odot \cdots \odot r_n) \cr
+&= V(r_1) \oplus V(r_2) \oplus \cdots \oplus V(r_n) \cr
+&= V(f \Rightarrow h_1) \oplus V(h_1 \Rightarrow h_2) \oplus \cdots \oplus V(h_n \Rightarrow g) \cr
+&= V(f) \oplus V(h_1)^{-1} \oplus V(h_1) \oplus V(h_2)^{-1} \oplus \cdots \oplus V(h_n) \oplus V(g)^{-1}
 \end{align}
 A easy inductive proof can show us that
 \[
-F(f) \oplus F(h_1)^{-1} \oplus F(h_1) \oplus F(h_2)^{-1} \oplus F(h_2) \oplus \cdots \oplus F(h_n) \oplus F(g)^{-1} = F(f) \oplus F(g)^{-1}
+V(f) \oplus V(h_1)^{-1} \oplus V(h_1) \oplus V(h_2)^{-1} \oplus V(h_2) \oplus \cdots \oplus V(h_n) \oplus V(g)^{-1} = V(f) \oplus V(g)^{-1}
 \]
 The same is true for $s$, so
 \[
-F(r) = F(s) = F(f) \oplus F(g)^{-1}
+V(r) = V(s) = V(f) \oplus V(g)^{-1}
 \]
 \end{proof}
 \end{proposition}
@@ -391,7 +387,7 @@ F(r) = F(s) = F(f) \oplus F(g)^{-1}
 %%        HOMOMORPHISM PROPOSITION 1 COROLLARY        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{corollary}
-For all transformations $r: f \Rightarrow g$, then $F(r) = F(f) \oplus F(g)^{-1}$.
+For all transformations $r: f \Rightarrow g$, then $V(r) = V(f) \oplus V(g)^{-1}$.
 Note that the definition of $F$ gives that only for $r \in \{f_i\}_i$.
 \end{corollary}
 
@@ -405,7 +401,7 @@ The following category $\catC(\mathbb{Q})$ is a $\mathbb{Q}$-category
 \item For all objects $(f, g)$
 \end{itemize}
 \[
-\catE(f, g) = \begin{cases} {\rm if~} f \Rightarrow g \in \catC, &F(f \Rightarrow g) \cr {\rm otherwise~} &\top \end{cases}
+\catE(f, g) = \begin{cases} {\rm if~} f \Rightarrow g \in \catC, &V(f \Rightarrow g) \cr {\rm otherwise~} &\top \end{cases}
 \]
 With $\top \in Q$ such that for all $x \in \mathbb{Q}$
 \[
@@ -415,23 +411,23 @@ x \preceq \top
 \begin{proof}
 For all 1-cells $(f, g)$, if it exists a unique transformation $f \Rightarrow g$, then
 \begin{align}
-\catE(f, g) &= F(f \Rightarrow g) \in \mathbb{Q} \cr
-&= F(f) \oplus F(g)^{-1}
+\catE(f, g) &= V(f \Rightarrow g) \in \mathbb{Q} \cr
+&= V(f) \oplus V(g)^{-1}
 \end{align}
 otherwise we already have $\catE(f, g) = \top \in \mathbb{Q}$.
 For all 1-cell $f$, we know that there is a identity transformation $f \Rightarrow f$ and
 \begin{align}
-\catE(f, f) &= F(id_f) \cr
-&= F(f \Rightarrow f)\cr
-&= F(f) \oplus F(f)^{-1} \cr
+\catE(f, f) &= V(id_f) \cr
+&= V(f \Rightarrow f)\cr
+&= V(f) \oplus V(f)^{-1} \cr
 &= e
 \end{align}
 Finally, for all 1-cells $(f, g, h)$ such that there exists $r: f \Rightarrow g$ and $s: g \Rightarrow h$ in $\catC$, then the homomorphism $F$ give us
 \begin{align}
-\catE(f, h) &= F(f \Rightarrow h) \cr
-&= F(s\circ r) \cr
-&= F(s) \oplus F(r) \cr
-&= F(g \Rightarrow h) \oplus F(f \Rightarrow g) \cr
+\catE(f, h) &= V(f \Rightarrow h) \cr
+&= V(s\circ r) \cr
+&= V(s) \oplus V(r) \cr
+&= V(g \Rightarrow h) \oplus V(f \Rightarrow g) \cr
 &= \catE(g, h) \oplus \catE(f, g)
 \end{align}
 If either $r$ or $s$ doesn't exists in $\catC$ then
@@ -457,22 +453,22 @@ $\catC(\mathbb{Q})$ is strictly symmetric monoidal with $\otimes$, the 2-functor
 \begin{proof}
 The monoidal structure is immediate using the fact that
 \[
-F(r) \oplus F(s) \succeq F(r \otimes s)
+V(r) \oplus V(s) \succeq V(r \otimes s)
 \]
 that is
 \[
-F(r: f \Rightarrow g) \oplus F(s: f' \Rightarrow g') = F(r \otimes s: f \otimes f' \Rightarrow g \otimes g')
+V(r: f \Rightarrow g) \oplus V(s: f' \Rightarrow g') = V(r \otimes s: f \otimes f' \Rightarrow g \otimes g')
 \]
 so
 \[
 \catE(f, g) \oplus \catE(f', g') = \catE(f \otimes f', g \otimes g')
 \]
-For the symmetry, we use the fact that $F(f \Rightarrow g) \oplus F(g \Rightarrow f) = e$
+For the symmetry, we use the fact that $V(f \Rightarrow g) \oplus V(g \Rightarrow f) = e$
 \begin{align}
-\catE(f \otimes g, g \otimes f) &= F(f \otimes g \Rightarrow g \otimes g) \cr
-&= F(f \Rightarrow g \otimes g \Rightarrow f) \cr
-&\preceq F(f \Rightarrow g) \oplus F(g \Rightarrow f) \cr
-&= F(f) \oplus F(g)^{-1} \oplus F(g) \oplus F(f)^{-1} \cr
+\catE(f \otimes g, g \otimes f) &= V(f \otimes g \Rightarrow g \otimes g) \cr
+&= V(f \Rightarrow g \otimes g \Rightarrow f) \cr
+&\preceq V(f \Rightarrow g) \oplus V(g \Rightarrow f) \cr
+&= V(f) \oplus V(g)^{-1} \oplus V(g) \oplus V(f)^{-1} \cr
 &= e
 \end{align}
 \end{proof}
@@ -484,7 +480,7 @@ For the symmetry, we use the fact that $F(f \Rightarrow g) \oplus F(g \Rightarro
 \begin{corollary}
 Given $s: f \Rightarrow g$ a transformation, and $s^{-1}: g \Rightarrow f$ the inverse transformation
 \[
-F(s \otimes s^{-1}) = e
+V(s \otimes s^{-1}) = e
 \]
 \end{corollary}
 
