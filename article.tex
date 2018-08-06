@@ -452,12 +452,13 @@ For all gates $f$, we know that there is a identity transformation $f
 &= V(f) \oplus V(f)^{-1} \cr
 &= e
 \end{align}
-Finally, for all gates $(f, g, h)$ such that there exists $r: f \Rightarrow
-  g$ and $s: g \Rightarrow h$ in $\catC$, then the homomorphism $V$ give us
+Finally, for all gates $(f, g, h)$ such that there exists $\alpha: f \Rightarrow
+  g$ and $\beta: g \Rightarrow h$ in $\mathbb{P}$, then the homomorphism $V$
+    give us
 \begin{align}
 \catE(f, h) &= V(f \Rightarrow h) \cr
 &= V(\alpha \circ \beta) \cr
-&= V(\align) \oplus V(\beta) \cr
+&= V(\alpha) \oplus V(\beta) \cr
 &= V(g \Rightarrow h) \oplus V(f \Rightarrow g) \cr
 &= \catE(g, h) \oplus \catE(f, g)
 \end{align}
