@@ -106,6 +106,13 @@ size=4.0mm,inner sep=0]
     % add code here to draw a box around them
 }
 
+\newcommand{\circcphase}[5]{%
+    \node [style=ctrl vertex] (#1) at (#2) {};
+    \node [style=box] (#3) at (#4) {$R_Z(#5)$};
+    \draw [thick] (#1) to (#3);
+    % add code here to draw a box around them
+}
+
 
 \tikzstyle{ellipses}=[execute at end node={\small{...}}]
 

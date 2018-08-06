@@ -56,19 +56,36 @@
 
 \newcommand{\circCZgate}{\inline{%
 \begin{tikzpicture}[circuit]
-  \node  (0) at (-1, 1) {};
+  \node  (0) at (1, 0) {};
   \node  (1) at (1, 1) {};
 % \node [style=ctrl vertex] (2) at (-1, 0) {};
 % \node [style=target vertex] (3) at (1, 0) {};
-  \circczed{2}{-1, 0}{3}{1, 0}
-  \node  (4) at (-1, -1) {};
-  \node  (5) at (1, -1) {};
+  \circczed{3}{0,1}{2}{0, 0}
+  \node  (4) at (-1, 0) {};
+  \node  (5) at (-1, 1) {};
   \draw  (1) to (3);
   \draw  (0) to (2);
   \draw  (3) to (5);
   \draw  (2) to (4);
 \end{tikzpicture}
 }}
+
+\newcommand{\circCPhase}[1]{\inline{%
+\begin{tikzpicture}[circuit]
+  \node  (0) at (1, 0) {};
+  \node  (1) at (1, 1) {};
+% \node [style=ctrl vertex] (2) at (-1, 0) {};
+% \node [style=target vertex] (3) at (1, 0) {};
+  \circcphase{3}{0,1}{2}{0, 0}{#1}
+  \node  (4) at (-1, 0) {};
+  \node  (5) at (-1, 1) {};
+  \draw  (1) to (3);
+  \draw  (0) to (2);
+  \draw  (3) to (5);
+  \draw  (2) to (4);
+\end{tikzpicture}
+}}
+
 
 \newcommand{\circCZcirc}{\inline{%
 \begin{tikzpicture}[circuit]
