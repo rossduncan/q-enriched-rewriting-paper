@@ -224,14 +224,18 @@ circuits
   We form a 2-PROP by adding some rewriting rules (we omit the identies)
   \[
     \begin{array}{cccccccc}
-      \circZ{{\epsilon}} & \Rightarrow & \circZ{{}} & \alpha : Z_\epsilon \to Z \\
+      \circZ{{\epsilon}} & \Rightarrow & \circZ{{}} & \alpha : Z_\epsilon
+        \Rightarrow Z \\
       \vstrut{1.2em} \\
-      \circX{{\epsilon}} & \Rightarrow & \circX{{}} & \beta : X_\epsilon \to X \\
+      \circX{{\epsilon}} & \Rightarrow & \circX{{}} & \beta : X_\epsilon
+        \Rightarrow X \\
       \vstrut{1.2em} \\
-      \circbox{H_\epsilon} & \Rightarrow & \circH & \gamma : H_\epsilon \to H
+      \circbox{H_\epsilon} & \Rightarrow & \circH & \gamma : H_\epsilon
+        \Rightarrow H
     \end{array}
   \]
   Then, on the circuit
+  \REM{We should take a more complexe circuit}
   \[
     \begin{array}{cccccccccc}
       \circbox{H_\epsilon} \\ 
