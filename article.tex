@@ -97,12 +97,12 @@ model them as higher dimensional arrows.
       $\beta \bullet \alpha : f \Rightarrow h$.
     \item For every 1-cell $f:A\to B$ we denote its identity 2-cell by
       $Id_f:f \Rightarrow f$.
-    \item For all \emph{0-cells} $a$, $b$, $c$ a bifunctor $\circ:
-      \mathcal{C}(b, c) \times \mathcal{C}(a, b) \to \mathcal{C}(a, c)$ called
+    \item For all \emph{0-cells} $A$, $B$, $C$ a bifunctor $\circ:
+      \mathcal{C}(B, C) \times \mathcal{C}(A, B) \to \mathcal{C}(A, C)$ called
       \emph{horizontal composition} of \emph{2-cells}.
   \end{itemize}
 \REM{Need here the name for a 2-cat with all \emph{2-cells} invertible;  the
-  term 2-groupoid refers to the case where both 1- and \emph{2-cells} are
+  term 2-groupoid refers to the case where both \emph{1-} and \emph{2-cells} are
   invertible.}
 \end{definition}
 
@@ -132,9 +132,17 @@ g, h$ for \emph{1-cells} and $\alpha$, $\beta$, $\gamma$ for
 %%        MONOIDAL 2-CATEGORY DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{definition}\label{def:monoidal-two-cat}
-  A \emph{strict} monoidal 2-category $(\mathcal{C}, \otimes)$ is a
+  A \emph{strict} monoidal 2-category $(\mathcal{C}, \otimes, I)$ is a
   strict 2-category with a 2-bifunctor $\otimes: \mathcal{C} \times
-  \mathcal{C} \to \mathcal{C}$.
+  \mathcal{C} \to \mathcal{C}$ such that
+  \begin{itemize}
+    \item for all \emph{0-cells} $A$
+      \[
+        A \otimes I = A
+      \]
+    \item for all \emph{0-cells} $(A, B)$, $I$ is the monoidal unit of
+    $\mathcal{C}(A, B)$
+  \end{itemize}
   \TODO{Denis: fix this definition}
   \REM{What about the unit object?}
 \end{definition}
@@ -159,8 +167,8 @@ g, h$ for \emph{1-cells} and $\alpha$, $\beta$, $\gamma$ for
     \mathcal{C}$ and all \emph{2-cells} $\alpha, \beta, \gamma, \delta \in
     \mathcal{C}(A, B)$
   \[
-    (\alpha \otimes \beta) \bullet (\gamma \otimes \delta) = (\alpha \bullet
-      \gamma) \bullet (\beta \bullet \delta)
+    (\alpha \otimes \beta) \circ (\gamma \otimes \delta) = (\alpha \circ \gamma)
+      \otimes (\beta \circ \delta)
   \]
 \end{remark}
 
@@ -202,7 +210,47 @@ circuits
 %%        REWRITING SYSTEM EXAMPLE        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{example}
-  TODO rewrite sequence \& atomic rule
+  Let's take the previous quantum circuit example \ref{ex:quantum-circs} and add
+    some \emph{noisy gates}, that is, gates which can failed with an $\epsilon$
+    probability.
+  \[
+    \begin{array}{cccccccccc}
+      \circZ{{\epsilon}} & \qquad  & \circX{{\epsilon}} & \qquad &
+        \circbox{H_\epsilon} \\ 
+      \vstrut{1.2em}
+      Z_\epsilon : 1 \to 1 && X_\epsilon : 1 \to 1 && H_\epsilon : 1 \to 1
+    \end{array}
+  \]
+  We form a 2-PROP by adding some rewriting rules (we omit the identies)
+  \[
+    \begin{array}{cccccccc}
+      \circZ{{\epsilon}} & \Rightarrow & \circZ{{}} & \alpha : Z_\epsilon \to Z \\
+      \vstrut{1.2em} \\
+      \circX{{\epsilon}} & \Rightarrow & \circX{{}} & \beta : X_\epsilon \to X \\
+      \vstrut{1.2em} \\
+      \circbox{H_\epsilon} & \Rightarrow & \circH & \gamma : H_\epsilon \to H
+    \end{array}
+  \]
+  Then, on the circuit
+  \[
+    \begin{array}{cccccccccc}
+      \circbox{H_\epsilon} \\ 
+      \vstrut{1.2em} \\
+      \circZ{{\epsilon}}
+    \end{array}
+  \]
+  a rewriting sequence can be $(id_{H_\epsilon} \otimes \alpha) \bullet (\beta
+    \otimes id_Z)$
+  \[
+    \begin{array}{cccccccccc}
+      \circbox{H_\epsilon} & \overset{id_{H_\epsilon}}{\Rightarrow} &
+        \circbox{H_\epsilon} & \overset{\beta}{\Rightarrow} & \circH \\ 
+      \vstrut{1.2em} \\
+      \circZ{{\epsilon}} & \overset{\alpha}{\Rightarrow} & \circZ{{}} &
+        \overset{id_Z}{\Rightarrow} & \circZ{{}} \\ 
+    \end{array}
+  \]
+  Moreover this sequence is atomic.
 \end{example}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
