@@ -22,7 +22,7 @@
 \section{Introduction}
 \label{sec:intro}
 
-\section{Mathematical Preliminaries}
+\section{Circuits and 2-PROPS}
 \label{sec:prelim}
 
 We assume that the reader is familiar with the notion of symmetric
@@ -37,8 +37,11 @@ monoidal category; a standard reference is
 
 PROPs have been used to formalise many algebraic structures
 \cite{Lack:2004sf}, however our interest here is to formalise a
-general notion of \emph{circuit} as a free PROP over a certain set of
-gates.
+general notion of \emph{circuit} made by wiring together certain
+atomic operations.  With this in mind, a PROP of circuits is
+henceforth a PROP freely generated from some monoidal signature; the
+members of the signature are called \emph{gates}, and a circuit is
+a morphism in such a PROP.
 
 \begin{example} \label{ex:boolean-circs}
   TODO -- boolean circuits
@@ -129,11 +132,11 @@ g, h$ for \emph{1-cells} and $\alpha$, $\beta$, $\gamma$ for
 %%        MONOIDAL 2-CATEGORY DEFINITION        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{definition}\label{def:monoidal-two-cat}
-  A \emph{strict} monoidal 2-category $(\mathcal{C}, \otimes)$ is a strict
-    2-category with a 2-bifunctor $\otimes: \mathcal{C} \times \mathcal{C} \to
-    \mathcal{C}$.
-  \REM{This definition doesn't quite work without the additoin type
-    information on the \emph{2-cells}}
+  A \emph{strict} monoidal 2-category $(\mathcal{C}, \otimes)$ is a
+  strict 2-category with a 2-bifunctor $\otimes: \mathcal{C} \times
+  \mathcal{C} \to \mathcal{C}$.
+  \TODO{Denis: fix this definition}
+  \REM{What about the unit object?}
 \end{definition}
 
 
@@ -141,6 +144,8 @@ g, h$ for \emph{1-cells} and $\alpha$, $\beta$, $\gamma$ for
 %%        INTERCHANGE LAW REMARK        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{remark}[Interchange law]
+\TODO{DENIS : please fix this statement.  THe second and third clauses
+  are the same.!}
   Since $\circ$ and $\otimes$ are bifunctorial, we have the following
     interchange equations for all \emph{0-cells} $A, B \in \mathcal{C}$ and all
     \emph{2-cells} $\alpha, \beta, \gamma, \delta \in \mathcal{C}(A, B)$
@@ -158,6 +163,12 @@ g, h$ for \emph{1-cells} and $\alpha$, $\beta$, $\gamma$ for
       \gamma) \bullet (\beta \bullet \delta)
   \]
 \end{remark}
+
+Putting the preceding definitions together, a 2-PROP is then a strict
+monoidal 2-category whose underlying monoidal 1-category is a PROP, or
+equivalently, a strict monoidal 2-category whose 0-cells are generated
+by a single object under $\otimes$.
+
 
 \section{Rewriting systems as 2-PROPS}
 \label{sec:rewriting}
