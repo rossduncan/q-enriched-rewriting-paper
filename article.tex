@@ -636,7 +636,7 @@ circuits
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%        HOMOMORPHISM EXAMPLES        %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{example}[Gates counter]
+\begin{example}[Gates count]
   Let's start with a simple example, a gates counter homomorphism $N$ over the
     quantale the additive group of natural numbers.
   \begin{align*}
@@ -652,7 +652,7 @@ circuits
     the number of gates added or removed given a rewriting sequence.
 \end{example}
 
-\begin{example}[Depth \& time counters]
+\begin{example}[Depth \& time count]
   Two similar counters can be made using the depth and the time of a circuit
   \begin{align*}
     D(f) &= 1 \\
@@ -668,7 +668,7 @@ circuits
   With $t_f$ defined for the generators of the PROP.
   It is easily to check that
   \begin{align*}
-    \max(D(f), D(g)) \preceq D(f) + D(g)
+    \max(D(f), D(g)) \preceq D(f) + D(g) \\
     \max(T(f), T(g)) \preceq T(f) + T(g)
   \end{align*}
   as required by the homomorphism.
